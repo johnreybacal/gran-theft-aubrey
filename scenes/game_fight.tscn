@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq1f3a7kx5b3m"]
+
+[ext_resource type="Texture2D" uid="uid://un76w2rvhpw7" path="res://icon.svg" id="1_cxknj"]
+[ext_resource type="Script" uid="uid://do1dah6xinhq4" path="res://scripts/game_fight.gd" id="1_ysmxf"]
+[ext_resource type="PackedScene" uid="uid://de8gr68jo3eno" path="res://scenes/hud_fight.tscn" id="2_fxrkh"]
+
+[node name="GameFight" type="Node2D"]
+script = ExtResource("1_ysmxf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(409, 324)
+texture = ExtResource("1_cxknj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.9098039, 0.05490196, 0.05490196, 1)
+position = Vector2(839, 321)
+texture = ExtResource("1_cxknj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HudFight" parent="CanvasLayer" instance=ExtResource("2_fxrkh")]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
