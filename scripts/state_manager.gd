@@ -8,12 +8,14 @@ class Granny:
     var arthritis: float
     var max_arthritis: float
 
+    func init_values(p_instance_id: int, p_max_arthritis: float):
+        instance_id = p_instance_id
+        max_arthritis = p_max_arthritis
+        arthritis = 0
+
     static func init(p_instance_id: int, p_max_arthritis: float):
         var instance = Granny.new()
-        instance.instance_id = p_instance_id
-        instance.max_arthritis = p_max_arthritis
-        instance.arthritis = 0
-
+        instance.init_values(p_instance_id, p_max_arthritis)
         return instance
 
 class GrannyNpc extends Granny:
@@ -23,10 +25,7 @@ class GrannyNpc extends Granny:
     
     static func init(p_instance_id: int, p_max_arthritis: float):
         var instance = GrannyNpc.new()
-        instance.instance_id = p_instance_id
-        instance.max_arthritis = p_max_arthritis
-        instance.arthritis = 0
-
+        instance.init_values(p_instance_id, p_max_arthritis)
         return instance
 
     func is_moving():
