@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cpyks128hw45y"]
 
+[ext_resource type="Script" uid="uid://cd80mqw3pbl7g" path="res://scripts/granny_stats.gd" id="1_c44af"]
+
 [sub_resource type="Gradient" id="Gradient_ppurl"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0.64369816, 3.85046e-07, 1)
@@ -19,6 +21,7 @@ width = 128
 height = 16
 
 [node name="GrannyStats" type="Node2D" unique_id=284626914]
+script = ExtResource("1_c44af")
 
 [node name="ArthritisBar" type="TextureProgressBar" parent="." unique_id=103713635]
 anchors_preset = 5
@@ -28,10 +31,11 @@ offset_left = -32.0
 offset_right = 32.0
 offset_bottom = 16.0
 grow_horizontal = 2
+step = 0.1
 texture_under = SubResource("GradientTexture2D_c44af")
 texture_progress = SubResource("GradientTexture2D_2x8ls")
 
-[node name="Label" type="Label" parent="." unique_id=1104287431]
+[node name="StateLabel" type="Label" parent="." unique_id=1104287431]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

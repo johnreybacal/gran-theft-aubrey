@@ -3,7 +3,7 @@ class_name ExploreEnemy
 
 @export var move_speed: float = 200
 @export var max_arthritis: float = 2
-var granny: StateManager.GrannyNpc
+var granny: Classes.GrannyNpc
 var player: ExplorePlayer
 
 var target_interval: float = .25
@@ -16,7 +16,7 @@ var chase_interval: float = 5
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
 
-    granny = StateManager.GrannyNpc.init(get_instance_id(), max_arthritis)
+    granny = Classes.GrannyNpc.init(get_instance_id(), max_arthritis, $GrannyStats)
     StateManager.enemies.append(granny)
 
     # Make sure to not await during _ready.
@@ -29,6 +29,7 @@ func _process(delta: float) -> void:
         if stun_interval <= 0:
             granny.is_stunned = false
             stun_interval = 2
+            granny.stats.on_stun_end()
 
         return
 
@@ -58,7 +59,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-    if navigation_agent.is_navigation_finished() or StateManager.is_encountered:
+    if StateManager.is_encountered:
+        return
+    if navigation_agent.is_navigation_finished() or not granny.can_move():
         granny.decrease_arthritis(delta)
         return
 
@@ -96,10 +99,13 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
     avoid_interval = 2
     chase_interval = 5
 
+    _set_movement_target(position)
+
     if is_loser:
         granny.is_avoiding = false
         granny.is_chasing = true
         granny.is_stunned = true
+        granny.stats.on_stunned()
         StateManager.enemies_defeated.append(granny)
     else:
         granny.is_chasing = false

@@ -3,11 +3,11 @@ class_name ExplorePlayer
 
 @export var move_speed: float = 250
 @export var max_arthritis: float = 5
-var granny: StateManager.Granny
+var granny: Classes.Granny
 
 func _ready() -> void:
     EventBus.on_player_move.connect(_move)
-    granny = StateManager.Granny.init(get_instance_id(), max_arthritis)
+    granny = Classes.Granny.init(get_instance_id(), max_arthritis, $GrannyStats)
     StateManager.player = granny
 
 
