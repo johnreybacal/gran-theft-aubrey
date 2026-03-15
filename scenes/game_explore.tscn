@@ -1,14 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqnpji2jsxo8y"]
+[gd_scene format=3 uid="uid://dqnpji2jsxo8y"]
 
 [ext_resource type="Script" uid="uid://bbw8o084ylbys" path="res://scripts/game_explore.gd" id="1_fiwcs"]
 [ext_resource type="PackedScene" uid="uid://cv742kmoulqfk" path="res://scenes/explore_player.tscn" id="1_tutr7"]
 [ext_resource type="PackedScene" uid="uid://cfh1ww543dm42" path="res://scenes/explore_enemy.tscn" id="2_1208y"]
 
-[node name="GameExplore" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_fiwcs"]
+vertices = PackedVector2Array(1275.9531, 13.96875, 1273.0391, 707.0625, 13.9296875, 715.9219, 9.0625, 11.0234375)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1, 1, 1286, 4, 1283, 717, 1283, 717, 4, 726, 4, 726)])
+
+[node name="GameExplore" type="Node2D" unique_id=1622595834]
 script = ExtResource("1_fiwcs")
 
-[node name="ExplorePlayer" parent="." instance=ExtResource("1_tutr7")]
+[node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
 position = Vector2(423, 378)
 
-[node name="ExploreEnemy" parent="." instance=ExtResource("2_1208y")]
+[node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
 position = Vector2(821, 361)
+move_speed = null
+max_arthritis = null
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
+navigation_polygon = SubResource("NavigationPolygon_fiwcs")

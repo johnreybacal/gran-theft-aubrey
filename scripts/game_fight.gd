@@ -3,28 +3,24 @@ extends Node2D
 @onready var hud: HudFight = $CanvasLayer/HudFight
 
 func _ready() -> void:
-    EventBus.toggle_encounter.connect(_on_encounter)
+    EventBus.on_encounter_start.connect(show.unbind(1))
+    EventBus.on_encounter_end.connect(hide.unbind(2))
     hide()
 
     hud.move_selected.connect(_on_move)
-
-func _on_encounter(is_encountered: bool):
-    if is_encountered:
-        hud.clear_log()
-        show()
-    else:
-        hide()
 
 func _on_visibility_changed() -> void:
     $CanvasLayer.visible = visible
 
 func _on_move(move: Meta.Moves):
     var is_winner = false
+    var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
 
     hud.append_log("You used " + Meta.get_move_name(move) + " | Enemy used " + Meta.get_move_name(enemy_move))
     
     if move == enemy_move:
+        is_draw = true
         hud.append_log("DRAW: Nothing happenned")
     elif move == Meta.Moves.Pull:
         if enemy_move == Meta.Moves.Hold:
@@ -45,5 +41,7 @@ func _on_move(move: Meta.Moves):
         elif enemy_move == Meta.Moves.Hold:
             hud.append_log("LOST: You slipped and lost the purse")
 
-    if is_winner:
-        EventBus.toggle_encounter.emit(false)
+    if is_draw:
+        pass
+    else:
+        EventBus.on_encounter_end.emit(StateManager.encounter_enemy_id, is_winner)
