@@ -1,17 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv742kmoulqfk"]
+[gd_scene format=3 uid="uid://cv742kmoulqfk"]
 
 [ext_resource type="Texture2D" uid="uid://un76w2rvhpw7" path="res://icon.svg" id="1_3vw7x"]
 [ext_resource type="Script" uid="uid://b86dxdtu0dsi7" path="res://scripts/explore_player.gd" id="1_cxtud"]
+[ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_yuam7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxtud"]
 size = Vector2(128, 128)
 
-[node name="ExplorePlayer" type="CharacterBody2D"]
+[node name="ExplorePlayer" type="CharacterBody2D" unique_id=851270054]
 motion_mode = 1
 script = ExtResource("1_cxtud")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1308817621]
 texture = ExtResource("1_3vw7x")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=398498441]
 shape = SubResource("RectangleShape2D_cxtud")
+
+[node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_yuam7")]
+position = Vector2(0, 70)

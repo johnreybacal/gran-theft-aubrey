@@ -2,11 +2,11 @@ extends CharacterBody2D
 class_name ExploreEnemy
 
 @export var move_speed: float = 200
-@export var max_arthritis: float = 10
+@export var max_arthritis: float = 2
 var granny: StateManager.GrannyNpc
 var player: ExplorePlayer
 
-var move_interval: float = .5
+var target_interval: float = .25
 var stun_interval: float = 1
 var avoid_interval: float = 2
 var chase_interval: float = 5
@@ -16,14 +16,13 @@ var chase_interval: float = 5
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
 
-    _init_granny.call_deferred()
-    # Make sure to not await during _ready.
-    _actor_setup.call_deferred()
-
-func _init_granny():
     granny = StateManager.GrannyNpc.init(get_instance_id(), max_arthritis)
     StateManager.enemies.append(granny)
 
+    # Make sure to not await during _ready.
+    _actor_setup.call_deferred()
+
+    
 func _process(delta: float) -> void:
     if granny.is_stunned:
         stun_interval -= delta
@@ -33,12 +32,12 @@ func _process(delta: float) -> void:
 
         return
 
-    if player and granny.is_moving():
-        move_interval -= delta
+    if player and granny.is_moving() and granny.can_move():
+        target_interval -= delta
 
         # Targeting
-        if move_interval <= 0:
-            move_interval = .5
+        if target_interval <= 0:
+            target_interval = .25
             if granny.is_avoiding:
                 var direction = player.position.direction_to(position)
                 _set_movement_target(position + (direction * 100))
@@ -58,15 +57,26 @@ func _process(delta: float) -> void:
                 chase_interval = 5
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
     if navigation_agent.is_navigation_finished() or StateManager.is_encountered:
+        granny.decrease_arthritis(delta)
         return
 
     var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 
     velocity = global_position.direction_to(next_path_position) * (move_speed * (.75 if granny.is_avoiding else 1.))
+
+    granny.increase_arthritis(delta)
     
     move_and_slide()
+
+    var collision := get_last_slide_collision()
+    if collision:
+        var collider = collision.get_collider()
+        if collider is ExplorePlayer:
+            var direction = collider.position.direction_to(position).normalized()
+            move_and_collide(direction * 25)
+            EventBus.on_encounter_start.emit(get_instance_id())
 
 func _actor_setup():
     # Wait for the first physics frame so the NavigationServer can sync.
@@ -80,6 +90,11 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
         return
 
     player = instance_from_id(StateManager.player.instance_id)
+
+    target_interval = .25
+    stun_interval = 1
+    avoid_interval = 2
+    chase_interval = 5
 
     if is_loser:
         granny.is_avoiding = false

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cpyks128hw45y"]
+
+[sub_resource type="Gradient" id="Gradient_ppurl"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.64369816, 3.85046e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c44af"]
+gradient = SubResource("Gradient_ppurl")
+width = 128
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_reeqg"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.86647785, 0.2576891, 7.70092e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2x8ls"]
+gradient = SubResource("Gradient_reeqg")
+width = 128
+height = 16
+
+[node name="GrannyStats" type="Node2D" unique_id=284626914]
+
+[node name="ArthritisBar" type="TextureProgressBar" parent="." unique_id=103713635]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+grow_horizontal = 2
+texture_under = SubResource("GradientTexture2D_c44af")
+texture_progress = SubResource("GradientTexture2D_2x8ls")
+
+[node name="Label" type="Label" parent="." unique_id=1104287431]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 19.0
+offset_right = 20.0
+offset_bottom = 42.0
+grow_horizontal = 2
+text = "Knees hurt"
