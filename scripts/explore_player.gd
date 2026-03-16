@@ -25,6 +25,8 @@ func _physics_process(delta: float) -> void:
     if collision:
         var collider = collision.get_collider()
         if collider is ExploreEnemy:
+            if not collider.granny.can_encounter():
+                return
             var direction = collider.position.direction_to(position).normalized()
             move_and_collide(direction * 25)
             EventBus.on_encounter_start.emit(collider.get_instance_id())

@@ -4,7 +4,7 @@ class Granny:
     var instance_id: int
     var arthritis: float = 0
     var max_arthritis: float = 5
-    var arthritis_rate: float = 2
+    var arthritis_rate: float = 1
     var is_recovering: bool = false
     var stats: GrannyStats
 
@@ -48,6 +48,7 @@ class GrannyNpc extends Granny:
     var is_chasing: bool = false
     var is_avoiding: bool = false
     var is_stunned: bool = false
+    var is_stolen: bool = false
     
     static func init(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
         var instance = GrannyNpc.new()
@@ -56,3 +57,24 @@ class GrannyNpc extends Granny:
 
     func is_moving():
         return is_chasing or is_avoiding
+
+    func can_encounter():
+        if not is_stolen:
+            return true
+        return is_chasing
+
+    func on_encounter_end(is_loser: bool):
+        is_stolen = is_loser
+        if is_loser:
+            is_avoiding = false
+            is_chasing = true
+            is_stunned = true
+            stats.on_stunned()
+            StateManager.enemies_defeated.append(self )
+        else:
+            is_chasing = false
+            is_avoiding = true
+            if self in StateManager.enemies_defeated:
+                var index: int = StateManager.enemies_defeated.find(self )
+                if index != -1:
+                    StateManager.enemies_defeated.remove_at(index)

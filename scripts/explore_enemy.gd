@@ -22,8 +22,25 @@ func _ready() -> void:
     # Make sure to not await during _ready.
     _actor_setup.call_deferred()
 
+func _physics_process(delta: float) -> void:
+    if StateManager.is_encountered:
+        return
+
+    var is_stunned = _check_intervals(delta)
+
+    if navigation_agent.is_navigation_finished() or not granny.can_move() or is_stunned:
+        granny.decrease_arthritis(delta)
+        return
+
+    var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+
+    velocity = global_position.direction_to(next_path_position) * (move_speed * (.75 if granny.is_avoiding else 1.))
+
+    granny.increase_arthritis(delta)
     
-func _process(delta: float) -> void:
+    move_and_slide()
+
+func _check_intervals(delta: float):
     if granny.is_stunned:
         stun_interval -= delta
         if stun_interval <= 0:
@@ -31,7 +48,7 @@ func _process(delta: float) -> void:
             stun_interval = 2
             granny.stats.on_stun_end()
 
-        return
+        return true
 
     if player and granny.is_moving() and granny.can_move():
         target_interval -= delta
@@ -57,29 +74,8 @@ func _process(delta: float) -> void:
                 granny.is_chasing = false
                 chase_interval = 5
 
+    return false
 
-func _physics_process(delta: float) -> void:
-    if StateManager.is_encountered:
-        return
-    if navigation_agent.is_navigation_finished() or not granny.can_move():
-        granny.decrease_arthritis(delta)
-        return
-
-    var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-
-    velocity = global_position.direction_to(next_path_position) * (move_speed * (.75 if granny.is_avoiding else 1.))
-
-    granny.increase_arthritis(delta)
-    
-    move_and_slide()
-
-    var collision := get_last_slide_collision()
-    if collision:
-        var collider = collision.get_collider()
-        if collider is ExplorePlayer:
-            var direction = collider.position.direction_to(position).normalized()
-            move_and_collide(direction * 25)
-            EventBus.on_encounter_start.emit(get_instance_id())
 
 func _actor_setup():
     # Wait for the first physics frame so the NavigationServer can sync.
@@ -94,23 +90,9 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
 
     player = instance_from_id(StateManager.player.instance_id)
 
-    target_interval = .25
+    target_interval = 0
     stun_interval = 1
     avoid_interval = 2
     chase_interval = 5
 
-    _set_movement_target(position)
-
-    if is_loser:
-        granny.is_avoiding = false
-        granny.is_chasing = true
-        granny.is_stunned = true
-        granny.stats.on_stunned()
-        StateManager.enemies_defeated.append(granny)
-    else:
-        granny.is_chasing = false
-        granny.is_avoiding = true
-        if granny in StateManager.enemies_defeated:
-            var index: int = StateManager.enemies_defeated.find(granny)
-            if index != -1:
-                StateManager.enemies_defeated.remove_at(index)
+    granny.on_encounter_end(is_loser)
