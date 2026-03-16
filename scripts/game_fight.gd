@@ -26,27 +26,27 @@ func _on_move(move: Meta.Moves):
 
     hud.append_log("You used " + Meta.get_move_name(move) + " | Enemy used " + Meta.get_move_name(enemy_move))
     
-    # if move == enemy_move:
-    #     is_draw = true
-    #     hud.append_log("DRAW: Nothing happenned")
-    # elif move == Meta.Moves.Pull:
-    #     if enemy_move == Meta.Moves.Hold:
-    #         is_winner = true
-    #         hud.append_log("WIN: You yanked the purse")
-    #     elif enemy_move == Meta.Moves.Push:
-    #         hud.append_log("LOST: You fell down and lost the purse")
-    # elif move == Meta.Moves.Hold:
-    #     if enemy_move == Meta.Moves.Push:
-    #         is_winner = true
-    #         hud.append_log("WIN: Enemy slipped and lost the purse")
-    #     elif enemy_move == Meta.Moves.Pull:
-    #         hud.append_log("LOST: Enemy yanked the purse")
-    # elif move == Meta.Moves.Push:
-    #     if enemy_move == Meta.Moves.Pull:
-    #         is_winner = true
-    #         hud.append_log("WIN: Enemy fell down and lost the purse")
-    #     elif enemy_move == Meta.Moves.Hold:
-    #         hud.append_log("LOST: You slipped and lost the purse")
+    if move == enemy_move:
+        is_draw = true
+        hud.append_log("DRAW: Nothing happenned")
+    elif move == Meta.Moves.Pull:
+        if enemy_move == Meta.Moves.Hold:
+            is_winner = true
+            hud.append_log("WIN: You yanked the purse")
+        elif enemy_move == Meta.Moves.Push:
+            hud.append_log("LOST: You fell down and lost the purse")
+    elif move == Meta.Moves.Hold:
+        if enemy_move == Meta.Moves.Push:
+            is_winner = true
+            hud.append_log("WIN: Enemy slipped and lost the purse")
+        elif enemy_move == Meta.Moves.Pull:
+            hud.append_log("LOST: Enemy yanked the purse")
+    elif move == Meta.Moves.Push:
+        if enemy_move == Meta.Moves.Pull:
+            is_winner = true
+            hud.append_log("WIN: Enemy fell down and lost the purse")
+        elif enemy_move == Meta.Moves.Hold:
+            hud.append_log("LOST: You slipped and lost the purse")
 
     if is_draw:
         StateManager.player.increase_arthritis(1)
