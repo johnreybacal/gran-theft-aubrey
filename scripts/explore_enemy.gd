@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name ExploreEnemy
 
 @export var move_speed: float = 200
-@export var max_arthritis: float = 2
+@export var arthitis_rate: float = 2
 var granny: Classes.GrannyNpc
 var player: ExplorePlayer
 
@@ -16,7 +16,7 @@ var chase_interval: float = 5
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
 
-    granny = Classes.GrannyNpc.init(get_instance_id(), max_arthritis, $GrannyStats)
+    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, arthitis_rate)
     StateManager.enemies.append(granny)
 
     # Make sure to not await during _ready.

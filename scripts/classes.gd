@@ -3,20 +3,21 @@ class_name Classes
 class Granny:
     var instance_id: int
     var arthritis: float = 0
-    var max_arthritis: float
+    var max_arthritis: float = 5
+    var arthritis_rate: float = 2
     var is_recovering: bool = false
     var stats: GrannyStats
 
-    func init_values(p_instance_id: int, p_max_arthritis: float, p_stats: GrannyStats):
+    func init_values(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
         instance_id = p_instance_id
-        max_arthritis = p_max_arthritis
+        arthritis_rate = p_arthritis_rate
         stats = p_stats
         stats.set_max_arthritis(max_arthritis)
         stats.update_arthritis(0)
 
-    static func init(p_instance_id: int, p_max_arthritis: float, p_stats: GrannyStats):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
         var instance = Granny.new()
-        instance.init_values(p_instance_id, p_max_arthritis, p_stats)
+        instance.init_values(p_instance_id, p_stats, p_arthritis_rate)
         return instance
 
     func can_move():
@@ -25,7 +26,7 @@ class Granny:
         return arthritis < max_arthritis
 
     func increase_arthritis(delta: float):
-        arthritis += delta
+        arthritis += delta * arthritis_rate
         if arthritis >= max_arthritis:
             arthritis = max_arthritis
             is_recovering = true
@@ -48,9 +49,9 @@ class GrannyNpc extends Granny:
     var is_avoiding: bool = false
     var is_stunned: bool = false
     
-    static func init(p_instance_id: int, p_max_arthritis: float, p_stats: GrannyStats):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
         var instance = GrannyNpc.new()
-        instance.init_values(p_instance_id, p_max_arthritis, p_stats)
+        instance.init_values(p_instance_id, p_stats, p_arthritis_rate)
         return instance
 
     func is_moving():

@@ -2,12 +2,12 @@ extends CharacterBody2D
 class_name ExplorePlayer
 
 @export var move_speed: float = 250
-@export var max_arthritis: float = 5
+@export var arthitis_rate: float = 1
 var granny: Classes.Granny
 
 func _ready() -> void:
     EventBus.on_player_move.connect(_move)
-    granny = Classes.Granny.init(get_instance_id(), max_arthritis, $GrannyStats)
+    granny = Classes.Granny.init(get_instance_id(), $GrannyStats, arthitis_rate)
     StateManager.player = granny
 
 
