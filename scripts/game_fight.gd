@@ -20,8 +20,7 @@ func _on_encounter_start():
 
 func _on_move(move: Meta.Moves):
     var is_winner = false
-    # var is_draw = false
-    var is_draw = true
+    var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
 
     hud.append_log("You used " + Meta.get_move_name(move) + " | Enemy used " + Meta.get_move_name(enemy_move))
