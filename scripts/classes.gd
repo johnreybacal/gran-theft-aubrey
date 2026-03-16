@@ -5,6 +5,7 @@ class Granny:
     var arthritis: float = 0
     var max_arthritis: float = 5
     var arthritis_rate: float = 1
+    var arthritis_rate_penalty: float = .0
     var is_recovering: bool = false
     var stats: GrannyStats
 
@@ -26,12 +27,13 @@ class Granny:
         return arthritis < max_arthritis
 
     func increase_arthritis(delta: float):
-        arthritis += delta * arthritis_rate
+        arthritis += delta * (arthritis_rate + arthritis_rate_penalty)
         if arthritis >= max_arthritis:
             arthritis = max_arthritis
             is_recovering = true
             stats.on_knees_hurt()
         stats.update_arthritis(arthritis)
+        _update_arthritis_rate_penalty()
 
     func decrease_arthritis(delta: float):
         if arthritis > 0:
@@ -42,6 +44,10 @@ class Granny:
         else:
             arthritis = 0
         stats.update_arthritis(arthritis)
+        _update_arthritis_rate_penalty()
+
+    func _update_arthritis_rate_penalty():
+        arthritis_rate_penalty = (arthritis / max_arthritis) / 2
 
 
 class GrannyNpc extends Granny:

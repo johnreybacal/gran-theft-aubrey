@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name ExploreEnemy
 
 @export var move_speed: float = 200
-@export var arthitis_rate: float = 2
+@export var arthitis_rate: float = 1.5
 var granny: Classes.GrannyNpc
 var player: ExplorePlayer
 
