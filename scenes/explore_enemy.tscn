@@ -22,7 +22,7 @@ motion_mode = 1
 script = ExtResource("1_1ytwq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=884950499]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.75, 0.75)
 sprite_frames = ExtResource("2_j7g34")
 animation = &"knees_hurt"
 autoplay = "idle"
@@ -34,10 +34,10 @@ shape = SubResource("RectangleShape2D_cxtud")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=831515124]
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_j7g34")]
-position = Vector2(0, 72)
+position = Vector2(0, 97)
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=348235111]
 modulate = Color(1, 1, 1, 0.1)
-position = Vector2(-1, 59)
+position = Vector2(-1, 87)
 scale = Vector2(1, 0.21875)
 texture = SubResource("GradientTexture2D_cantd")

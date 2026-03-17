@@ -3,18 +3,35 @@
 [ext_resource type="Script" uid="uid://bbw8o084ylbys" path="res://scripts/game_explore.gd" id="1_fiwcs"]
 [ext_resource type="PackedScene" uid="uid://cv742kmoulqfk" path="res://scenes/explore_player.tscn" id="1_tutr7"]
 [ext_resource type="PackedScene" uid="uid://cfh1ww543dm42" path="res://scenes/explore_enemy.tscn" id="2_1208y"]
+[ext_resource type="Texture2D" uid="uid://wk4ypjtht2ko" path="res://assets/sprites/map_anim.png" id="4_r354h"]
+[ext_resource type="Texture2D" uid="uid://ucfcpwqmsd5q" path="res://assets/sprites/map.png" id="4_tpdw7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fiwcs"]
-vertices = PackedVector2Array(2153.9063, 1435.9297, -595.9531, 1419.0625, -587.03906, -499.10156, 2137.0781, -527.8906)
+vertices = PackedVector2Array(2025.0234, -1017.03125, 2030.9688, 1002.0078, -2046.0625, 1008.97656, -2058.9297, -1029.9609)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-597, -509, 2147, -538, 2164, 1446, -606, 1429)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2069, -1040, 2035, -1027, 2041, 1012, -2056, 1019)])
 
-[sub_resource type="Gradient" id="Gradient_fiwcs"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvqj8"]
+atlas = ExtResource("4_r354h")
+region = Rect2(0, 0, 4096, 2048)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tpdw7"]
-gradient = SubResource("Gradient_fiwcs")
+[sub_resource type="AtlasTexture" id="AtlasTexture_82kap"]
+atlas = ExtResource("4_r354h")
+region = Rect2(4096, 0, 4096, 2048)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4s7jy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvqj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82kap")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
 
 [node name="GameExplore" type="Node2D" unique_id=1622595834]
 script = ExtResource("1_fiwcs")
@@ -23,6 +40,7 @@ script = ExtResource("1_fiwcs")
 position = Vector2(423, 378)
 
 [node name="Camera2D" type="Camera2D" parent="ExplorePlayer" unique_id=392920982]
+zoom = Vector2(0.75, 0.75)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 
@@ -32,8 +50,43 @@ position = Vector2(821, 361)
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
 navigation_polygon = SubResource("NavigationPolygon_fiwcs")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1355949240]
+vertices = PackedVector2Array(-1314, -338, -928, -442, -796, -303, -414, -272, -348, -200, -536, -137, -511, -77, -316, 10, -301, 105, -479, 133, -479, 133, -787, 101, -1013, 177, -1393, 29, -1374, -49, -1261, -68, -1261, -68, -1264, -103, -1330, -234)
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1604640176]
+vertices = PackedVector2Array(139, -206, 104, -52, 318, -5, 716, -24, 917, -68, 873, -244, 641, -363, 327, -329)
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1834636390]
+vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
+
+[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=28444345]
+position = Vector2(690, 192)
+vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
+
+[node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1593330249]
+position = Vector2(1635, -200)
+vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
+
+[node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=858474564]
+position = Vector2(1974, -624)
+vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
+
+[node name="NavigationObstacle2D7" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1138316740]
+position = Vector2(1302, -1038)
+vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
+
+[node name="NavigationObstacle2D8" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1331574256]
+position = Vector2(-334, -1201)
+vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -450, 433, -616, 439)
+
+[node name="NavigationObstacle2D9" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=559706139]
+position = Vector2(-334, -1201)
+vertices = PackedVector2Array(-1617, 2015, -1633, 1936, -1391, 2074, -1420, 2118)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=451189809]
+sprite_frames = SubResource("SpriteFrames_4s7jy")
+autoplay = "default"
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182650496]
 z_index = -1
-position = Vector2(774.0001, 456.99997)
-scale = Vector2(42.937496, 30.281252)
-texture = SubResource("GradientTexture2D_tpdw7")
+texture = ExtResource("4_tpdw7")

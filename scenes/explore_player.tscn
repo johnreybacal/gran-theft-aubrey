@@ -22,7 +22,7 @@ motion_mode = 1
 script = ExtResource("1_cxtud")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=340199218]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.75, 0.75)
 sprite_frames = ExtResource("2_yuam7")
 animation = &"knees_hurt"
 autoplay = "idle"
@@ -31,10 +31,10 @@ autoplay = "idle"
 shape = SubResource("RectangleShape2D_cxtud")
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_yuam7")]
-position = Vector2(0, 70)
+position = Vector2(0, 95)
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=669543659]
 modulate = Color(1, 1, 1, 0.1)
-position = Vector2(-1, 59)
+position = Vector2(-1, 87)
 scale = Vector2(1, 0.21875)
 texture = SubResource("GradientTexture2D_1qjc3")
