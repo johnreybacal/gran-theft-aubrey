@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfh1ww543dm42"]
 
 [ext_resource type="Script" uid="uid://c83bkc0vammix" path="res://scripts/explore_enemy.gd" id="1_1ytwq"]
-[ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_sprite_frames.tres" id="2_j7g34"]
+[ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_explore_sprite_frames.tres" id="2_j7g34"]
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_j7g34"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxtud"]
