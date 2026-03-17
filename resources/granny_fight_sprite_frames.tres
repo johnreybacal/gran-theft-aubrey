@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://csa02rjqs103f" path="res://assets/sprites/granny_fight_pull_fall_end.png" id="6_r08be"]
 [ext_resource type="Texture2D" uid="uid://dic4hswlngosm" path="res://assets/sprites/granny_fight_push_fall.png" id="8_3gqeg"]
 [ext_resource type="Texture2D" uid="uid://c2io1mug5dfn" path="res://assets/sprites/granny_fight_push_fall_end.png" id="9_g4ofh"]
+[ext_resource type="Texture2D" uid="uid://r42bwb8yfsjn" path="res://assets/sprites/granny_fight_win.png" id="10_w8a5v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yj5a1"]
 atlas = ExtResource("1_c05kj")
@@ -80,6 +81,14 @@ region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mao0y"]
 atlas = ExtResource("9_g4ofh")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjivu"]
+atlas = ExtResource("10_w8a5v")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmxlm"]
+atlas = ExtResource("10_w8a5v")
 region = Rect2(256, 0, 256, 256)
 
 [resource]
@@ -181,5 +190,16 @@ animations = [{
 }],
 "loop": true,
 "name": &"push_fall_end",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjivu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmxlm")
+}],
+"loop": true,
+"name": &"win",
 "speed": 3.0
 }]

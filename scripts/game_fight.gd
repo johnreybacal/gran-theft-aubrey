@@ -79,13 +79,16 @@ func _on_move(move: Meta.Moves):
             move_timer.wait_time = 3
             hud.append_log("LOST: Your knee hurts")
             _play_animation(player_animation, move, true)
+            _play_win_animation.call_deferred(enemy_animation)
     else:
         is_encounter_over = true
         move_timer.wait_time = 3
         if is_winner:
             _play_animation(enemy_animation, enemy_move, true)
+            _play_win_animation.call_deferred(player_animation)
         else:
             _play_animation(player_animation, move, true)
+            _play_win_animation.call_deferred(enemy_animation)
 
     move_timer.start()
 
@@ -104,6 +107,10 @@ func _play_animation(target: AnimatedSprite2D, move: Meta.Moves, is_loser: bool 
             target.play("push")
         else:
             target.play("hold")
+
+func _play_win_animation(target: AnimatedSprite2D):
+    await get_tree().create_timer(1.0).timeout
+    target.play("win")
 
 func _on_move_timer_timeout() -> void:
     if is_encounter_over:
