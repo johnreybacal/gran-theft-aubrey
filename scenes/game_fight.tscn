@@ -26,13 +26,16 @@ script = ExtResource("1_ysmxf")
 z_index = 1
 position = Vector2(-111, 0)
 sprite_frames = ExtResource("2_ysmxf")
-autoplay = "default"
+animation = &"pull"
+autoplay = "hold"
+frame_progress = 0.55344516
 
 [node name="Enemy" type="AnimatedSprite2D" parent="." unique_id=1412914829]
 z_index = 1
 position = Vector2(109, 0)
 sprite_frames = ExtResource("2_ysmxf")
-autoplay = "default"
+animation = &"push"
+autoplay = "hold"
 flip_h = true
 
 [node name="Purse" type="Sprite2D" parent="." unique_id=773172291]
@@ -59,4 +62,8 @@ position = Vector2(4.4999695, 240.5)
 scale = Vector2(20.109375, 4.453125)
 texture = SubResource("GradientTexture2D_hpqlm")
 
+[node name="MoveTimer" type="Timer" parent="." unique_id=539509820]
+one_shot = true
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

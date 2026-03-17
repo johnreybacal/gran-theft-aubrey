@@ -1,6 +1,12 @@
 extends Node2D
 
 @onready var hud: HudFight = $CanvasLayer/HudFight
+@onready var player_animation: AnimatedSprite2D = $Player
+@onready var enemy_animation: AnimatedSprite2D = $Enemy
+@onready var move_timer: Timer = $MoveTimer
+
+var is_encounter_over: bool = false
+var is_winner: bool = false
 
 func _ready() -> void:
     EventBus.on_encounter_start.connect(_on_encounter_start.unbind(1))
@@ -14,9 +20,14 @@ func _on_visibility_changed() -> void:
     $CanvasLayer.visible = visible
 
 func _on_encounter_start():
+    is_encounter_over = false
+    is_winner = false
     show()
     hud.clear_log()
     hud.update_arthritis(StateManager.player.arthritis)
+    
+    _play_animation(player_animation, Meta.Moves.Hold)
+    _play_animation(enemy_animation, Meta.Moves.Hold)
     $Camera2D.enabled = true
 
 func _on_encounter_end():
@@ -25,9 +36,12 @@ func _on_encounter_end():
 
 
 func _on_move(move: Meta.Moves):
-    var is_winner = false
+    if move_timer.time_left > 0:
+        return
     var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
+    _play_animation(player_animation, move)
+    _play_animation(enemy_animation, enemy_move)
 
     hud.append_log("You used " + Meta.get_move_name(move) + " | Enemy used " + Meta.get_move_name(enemy_move))
     
@@ -57,7 +71,24 @@ func _on_move(move: Meta.Moves):
         StateManager.player.increase_arthritis(1)
         hud.update_arthritis(StateManager.player.arthritis)
         if not StateManager.player.can_move():
+            is_encounter_over = true
             hud.append_log("LOST: Your knee hurts")
-            EventBus.on_encounter_end.emit.call_deferred(StateManager.encounter_enemy_id, false)
     else:
+        is_encounter_over = true
+
+    move_timer.start()
+
+func _play_animation(target: AnimatedSprite2D, move: Meta.Moves):
+    if move == Meta.Moves.Pull:
+        target.play("pull")
+    elif move == Meta.Moves.Push:
+        target.play("push")
+    else:
+        target.play("hold")
+
+func _on_move_timer_timeout() -> void:
+    if is_encounter_over:
         EventBus.on_encounter_end.emit(StateManager.encounter_enemy_id, is_winner)
+    else:
+        _play_animation(player_animation, Meta.Moves.Hold)
+        _play_animation(enemy_animation, Meta.Moves.Hold)

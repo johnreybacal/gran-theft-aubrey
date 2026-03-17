@@ -1,6 +1,8 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://c3fivx5xvy8ox"]
 
 [ext_resource type="Texture2D" uid="uid://bsnupsybpns8k" path="res://assets/sprites/granny_fight_idle.png" id="1_kfgrg"]
+[ext_resource type="Texture2D" uid="uid://bwn3w3v2sugl0" path="res://assets/sprites/granny_fight_pull.png" id="2_vt07d"]
+[ext_resource type="Texture2D" uid="uid://dfpp0snj7nmn3" path="res://assets/sprites/granny_fight_push.png" id="3_sej1b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yj5a1"]
 atlas = ExtResource("1_kfgrg")
@@ -8,6 +10,22 @@ region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vt07d"]
 atlas = ExtResource("1_kfgrg")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbhph"]
+atlas = ExtResource("2_vt07d")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql51l"]
+atlas = ExtResource("2_vt07d")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ru3i"]
+atlas = ExtResource("3_sej1b")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdf8e"]
+atlas = ExtResource("3_sej1b")
 region = Rect2(256, 0, 256, 256)
 
 [resource]
@@ -20,6 +38,28 @@ animations = [{
 "texture": SubResource("AtlasTexture_vt07d")
 }],
 "loop": true,
-"name": &"default",
+"name": &"hold",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbhph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql51l")
+}],
+"loop": true,
+"name": &"pull",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ru3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdf8e")
+}],
+"loop": true,
+"name": &"push",
 "speed": 3.0
 }]

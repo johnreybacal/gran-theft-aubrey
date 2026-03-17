@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cfh1ww543dm42" path="res://scenes/explore_enemy.tscn" id="2_1208y"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fiwcs"]
-vertices = PackedVector2Array(1275.9531, 13.96875, 1273.0391, 707.0625, 13.9296875, 715.9219, 9.0625, 11.0234375)
+vertices = PackedVector2Array(2153.9063, 1435.9297, -595.9531, 1419.0625, -587.03906, -499.10156, 2137.0781, -527.8906)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1, 1, 1286, 4, 1283, 717, 1283, 717, 4, 726, 4, 726)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-597, -509, 2147, -538, 2164, 1446, -606, 1429)])
 
 [sub_resource type="Gradient" id="Gradient_fiwcs"]
 offsets = PackedFloat32Array(1)
