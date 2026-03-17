@@ -1,0 +1,65 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://blhtrapl7a2a2"]
+
+[ext_resource type="Texture2D" uid="uid://djqg4f7fdqmep" path="res://assets/sprites/granny_idle.png" id="1_f6rxp"]
+[ext_resource type="Texture2D" uid="uid://cpr8iavitlnc8" path="res://assets/sprites/granny_knees_hurt.png" id="2_pl56c"]
+[ext_resource type="Texture2D" uid="uid://0i44xfcvr2m4" path="res://assets/sprites/granny_walk.png" id="3_5udku"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5av46"]
+atlas = ExtResource("1_f6rxp")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykklq"]
+atlas = ExtResource("1_f6rxp")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gnk1"]
+atlas = ExtResource("2_pl56c")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1ogt"]
+atlas = ExtResource("2_pl56c")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8h0p"]
+atlas = ExtResource("3_5udku")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kre4o"]
+atlas = ExtResource("3_5udku")
+region = Rect2(256, 0, 256, 256)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5av46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykklq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gnk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1ogt")
+}],
+"loop": true,
+"name": &"knees_hurt",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8h0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kre4o")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]

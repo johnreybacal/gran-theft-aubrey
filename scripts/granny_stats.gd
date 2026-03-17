@@ -32,12 +32,14 @@ func on_knees_hurt_end():
     remove_label(KNEES_HURT)
 
 func on_chasing():
+    remove_label(AVOIDING)
     add_label(CHASING)
     
 func on_chasing_end():
     remove_label(CHASING)
 
 func on_avoiding():
+    remove_label(CHASING)
     add_label(AVOIDING)
 
 func on_avoiding_end():

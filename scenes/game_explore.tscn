@@ -9,6 +9,13 @@ vertices = PackedVector2Array(1275.9531, 13.96875, 1273.0391, 707.0625, 13.92968
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1, 1, 1286, 4, 1283, 717, 1283, 717, 4, 726, 4, 726)])
 
+[sub_resource type="Gradient" id="Gradient_fiwcs"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tpdw7"]
+gradient = SubResource("Gradient_fiwcs")
+
 [node name="GameExplore" type="Node2D" unique_id=1622595834]
 script = ExtResource("1_fiwcs")
 
@@ -17,8 +24,12 @@ position = Vector2(423, 378)
 
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
 position = Vector2(821, 361)
-move_speed = null
-max_arthritis = null
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
 navigation_polygon = SubResource("NavigationPolygon_fiwcs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182650496]
+z_index = -1
+position = Vector2(650.5, 352.5)
+scale = Vector2(21.328125, 12.015625)
+texture = SubResource("GradientTexture2D_tpdw7")

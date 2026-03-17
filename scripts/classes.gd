@@ -9,17 +9,19 @@ class Granny:
     var recovery_threshold: float = .75
     var is_recovering: bool = false
     var stats: GrannyStats
+    var sprite: AnimatedSprite2D
 
-    func init_values(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
+    func init_values(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
         instance_id = p_instance_id
         arthritis_rate = p_arthritis_rate
         stats = p_stats
+        sprite = p_sprite
         stats.set_max_arthritis(max_arthritis)
         stats.update_arthritis(0)
 
-    static func init(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
         var instance = Granny.new()
-        instance.init_values(p_instance_id, p_stats, p_arthritis_rate)
+        instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
         return instance
 
     func can_move():
@@ -34,6 +36,7 @@ class Granny:
             is_recovering = true
             recovery_threshold = randf_range(.5, .9)
             stats.on_knees_hurt()
+            play_knees_hurt()
         stats.update_arthritis(arthritis)
         _update_arthritis_rate_penalty()
 
@@ -43,6 +46,7 @@ class Granny:
             if is_recovering and arthritis <= (max_arthritis * recovery_threshold):
                 is_recovering = false
                 stats.on_knees_hurt_end()
+                play_idle()
         else:
             arthritis = 0
         stats.update_arthritis(arthritis)
@@ -51,6 +55,16 @@ class Granny:
     func _update_arthritis_rate_penalty():
         arthritis_rate_penalty = (arthritis / max_arthritis) / 2
 
+    func play_walk(is_facing_left: bool):
+        sprite.play("walk")
+        sprite.flip_h = is_facing_left
+
+    func play_idle():
+        sprite.play("idle")
+
+    func play_knees_hurt():
+        sprite.play("knees_hurt")
+
 
 class GrannyNpc extends Granny:
     var is_chasing: bool = false
@@ -58,9 +72,9 @@ class GrannyNpc extends Granny:
     var is_stunned: bool = false
     var is_stolen: bool = false
     
-    static func init(p_instance_id: int, p_stats: GrannyStats, p_arthritis_rate: float = 1):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
         var instance = GrannyNpc.new()
-        instance.init_values(p_instance_id, p_stats, p_arthritis_rate)
+        instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
         return instance
 
     func is_moving():

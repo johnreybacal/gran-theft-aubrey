@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cv742kmoulqfk"]
 
-[ext_resource type="Texture2D" uid="uid://un76w2rvhpw7" path="res://icon.svg" id="1_3vw7x"]
 [ext_resource type="Script" uid="uid://b86dxdtu0dsi7" path="res://scripts/explore_player.gd" id="1_cxtud"]
+[ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_sprite_frames.tres" id="2_yuam7"]
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_yuam7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxtud"]
@@ -11,8 +11,11 @@ size = Vector2(128, 128)
 motion_mode = 1
 script = ExtResource("1_cxtud")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1308817621]
-texture = ExtResource("1_3vw7x")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=340199218]
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("2_yuam7")
+animation = &"knees_hurt"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=398498441]
 shape = SubResource("RectangleShape2D_cxtud")

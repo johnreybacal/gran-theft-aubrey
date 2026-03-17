@@ -16,13 +16,14 @@ var chase_interval: float = 5
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
 
-    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, arthitis_rate)
+    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate)
     StateManager.enemies.append(granny)
 
     # Make sure to not await during _ready.
     _actor_setup.call_deferred()
 
 func _physics_process(delta: float) -> void:
+    _handle_animation()
     if StateManager.is_encountered:
         return
 
@@ -40,6 +41,16 @@ func _physics_process(delta: float) -> void:
     
     move_and_slide()
 
+
+func _handle_animation():
+    if granny.is_avoiding or granny.is_chasing:
+        if granny.can_move() and not granny.is_stunned:
+            granny.play_walk(velocity.x < 0)
+        else:
+            granny.play_knees_hurt()
+    else:
+        granny.play_idle()
+
 func _check_intervals(delta: float):
     if granny.is_stunned:
         stun_interval -= delta
@@ -51,14 +62,15 @@ func _check_intervals(delta: float):
         return true
 
     # Targeting
-    target_interval -= delta
-    if target_interval <= 0:
-        target_interval = .25
-        if granny.is_avoiding:
-            var direction = player.position.direction_to(position)
-            _set_movement_target(position + (direction * 100))
-        elif granny.is_chasing:
-            _set_movement_target(player.position)
+    if granny.is_avoiding or granny.is_chasing:
+        target_interval -= delta
+        if target_interval <= 0:
+            target_interval = .25
+            if granny.is_avoiding:
+                var direction = player.position.direction_to(position)
+                _set_movement_target(position + (direction * 100))
+            elif granny.is_chasing:
+                _set_movement_target(player.position)
 
     if granny.can_move():
         if granny.is_avoiding:
