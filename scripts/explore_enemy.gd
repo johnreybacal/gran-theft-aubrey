@@ -50,29 +50,32 @@ func _check_intervals(delta: float):
 
         return true
 
-    if player and granny.is_moving() and granny.can_move():
-        target_interval -= delta
+    # Targeting
+    target_interval -= delta
+    if target_interval <= 0:
+        target_interval = .25
+        if granny.is_avoiding:
+            var direction = player.position.direction_to(position)
+            _set_movement_target(position + (direction * 100))
+        elif granny.is_chasing:
+            _set_movement_target(player.position)
 
-        # Targeting
-        if target_interval <= 0:
-            target_interval = .25
-            if granny.is_avoiding:
-                var direction = player.position.direction_to(position)
-                _set_movement_target(position + (direction * 100))
-            elif granny.is_chasing:
-                _set_movement_target(player.position)
-
+    if granny.can_move():
         if granny.is_avoiding:
             avoid_interval -= delta
             if avoid_interval <= 0:
                 granny.is_avoiding = false
                 avoid_interval = 2
+                granny.stats.on_avoiding_end()
+                _set_movement_target(position)
 
         if granny.is_chasing:
             chase_interval -= delta
             if chase_interval <= 0:
                 granny.is_chasing = false
                 chase_interval = 5
+                granny.stats.on_chasing_end()
+                _set_movement_target(position)
 
     return false
 

@@ -35,5 +35,7 @@ func _physics_process(delta: float) -> void:
                 if not collider.granny.can_encounter():
                     return
                 var direction = collider.position.direction_to(position).normalized()
-                move_and_collide(direction * 50)
+                move_and_collide(direction * 15)
+                direction = position.direction_to(collider.position).normalized()
+                collider.move_and_collide(direction * 15)
                 EventBus.on_encounter_start.emit(collider.get_instance_id())

@@ -6,6 +6,7 @@ class Granny:
     var max_arthritis: float = 5
     var arthritis_rate: float = 1
     var arthritis_rate_penalty: float = .0
+    var recovery_threshold: float = .75
     var is_recovering: bool = false
     var stats: GrannyStats
 
@@ -31,6 +32,7 @@ class Granny:
         if arthritis >= max_arthritis:
             arthritis = max_arthritis
             is_recovering = true
+            recovery_threshold = randf_range(.5, .9)
             stats.on_knees_hurt()
         stats.update_arthritis(arthritis)
         _update_arthritis_rate_penalty()
@@ -38,7 +40,7 @@ class Granny:
     func decrease_arthritis(delta: float):
         if arthritis > 0:
             arthritis -= delta
-            if is_recovering and arthritis <= (max_arthritis * .75):
+            if is_recovering and arthritis <= (max_arthritis * recovery_threshold):
                 is_recovering = false
                 stats.on_knees_hurt_end()
         else:
@@ -76,10 +78,12 @@ class GrannyNpc extends Granny:
             is_chasing = true
             is_stunned = true
             stats.on_stunned()
+            stats.on_chasing()
             StateManager.enemies_defeated.append(self )
         else:
             is_chasing = false
             is_avoiding = true
+            stats.on_avoiding()
             if self in StateManager.enemies_defeated:
                 var index: int = StateManager.enemies_defeated.find(self )
                 if index != -1:

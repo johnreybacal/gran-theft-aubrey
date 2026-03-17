@@ -1,6 +1,8 @@
 extends Node2D
 class_name GrannyStats
 
+const CHASING = "Chasing."
+const AVOIDING = "Avoiding."
 const STUNNED = "Stunned."
 const KNEES_HURT = "Knees Hurt."
 
@@ -28,6 +30,19 @@ func on_knees_hurt():
 
 func on_knees_hurt_end():
     remove_label(KNEES_HURT)
+
+func on_chasing():
+    add_label(CHASING)
+    
+func on_chasing_end():
+    remove_label(CHASING)
+
+func on_avoiding():
+    add_label(AVOIDING)
+
+func on_avoiding_end():
+    remove_label(AVOIDING)
+
 
 func add_label(text: String):
     if not state_label.text.contains(text):
