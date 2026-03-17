@@ -4,7 +4,7 @@ extends Node2D
 
 func _ready() -> void:
     EventBus.on_encounter_start.connect(_on_encounter_start.unbind(1))
-    EventBus.on_encounter_end.connect(hide.unbind(2))
+    EventBus.on_encounter_end.connect(_on_encounter_end.unbind(2))
     hide()
 
     hud.set_max_arthritis(StateManager.player.max_arthritis)
@@ -17,6 +17,12 @@ func _on_encounter_start():
     show()
     hud.clear_log()
     hud.update_arthritis(StateManager.player.arthritis)
+    $Camera2D.enabled = true
+
+func _on_encounter_end():
+    hide()
+    $Camera2D.enabled = false
+
 
 func _on_move(move: Meta.Moves):
     var is_winner = false

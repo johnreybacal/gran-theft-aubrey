@@ -22,6 +22,10 @@ script = ExtResource("1_fiwcs")
 [node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
 position = Vector2(423, 378)
 
+[node name="Camera2D" type="Camera2D" parent="ExplorePlayer" unique_id=392920982]
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
 position = Vector2(821, 361)
 
@@ -30,6 +34,6 @@ navigation_polygon = SubResource("NavigationPolygon_fiwcs")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182650496]
 z_index = -1
-position = Vector2(650.5, 352.5)
-scale = Vector2(21.328125, 12.015625)
+position = Vector2(774.0001, 456.99997)
+scale = Vector2(42.937496, 30.281252)
 texture = SubResource("GradientTexture2D_tpdw7")
