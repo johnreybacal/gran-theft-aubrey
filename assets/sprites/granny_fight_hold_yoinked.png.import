@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsnupsybpns8k"
-path="res://.godot/imported/granny_fight_idle.png-75951171f794c7a87933d90a8b937373.ctex"
+uid="uid://dhirxbgiebyqq"
+path="res://.godot/imported/granny_fight_hold_yoinked.png-639ab58aa035226446eddb880e8b41d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/granny_fight_idle.png"
-dest_files=["res://.godot/imported/granny_fight_idle.png-75951171f794c7a87933d90a8b937373.ctex"]
+source_file="res://assets/sprites/granny_fight_hold_yoinked.png"
+dest_files=["res://.godot/imported/granny_fight_hold_yoinked.png-639ab58aa035226446eddb880e8b41d1.ctex"]
 
 [params]
 

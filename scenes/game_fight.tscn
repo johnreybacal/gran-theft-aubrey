@@ -26,9 +26,9 @@ script = ExtResource("1_ysmxf")
 z_index = 1
 position = Vector2(-111, 0)
 sprite_frames = ExtResource("2_ysmxf")
-animation = &"pull"
+animation = &"push_fall_end"
 autoplay = "hold"
-frame_progress = 0.55344516
+frame_progress = 0.6297429
 
 [node name="Enemy" type="AnimatedSprite2D" parent="." unique_id=1412914829]
 z_index = 1

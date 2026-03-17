@@ -16,10 +16,14 @@ func _ready() -> void:
     hud.set_max_arthritis(StateManager.player.max_arthritis)
     hud.move_selected.connect(_on_move)
 
+    player_animation.animation_finished.connect(_on_player_animation_finished)
+    enemy_animation.animation_finished.connect(_on_enemy_animation_finished)
+
 func _on_visibility_changed() -> void:
     $CanvasLayer.visible = visible
 
 func _on_encounter_start():
+    move_timer.wait_time = 1
     is_encounter_over = false
     is_winner = false
     show()
@@ -72,19 +76,34 @@ func _on_move(move: Meta.Moves):
         hud.update_arthritis(StateManager.player.arthritis)
         if not StateManager.player.can_move():
             is_encounter_over = true
+            move_timer.wait_time = 3
             hud.append_log("LOST: Your knee hurts")
+            _play_animation(player_animation, move, true)
     else:
         is_encounter_over = true
+        move_timer.wait_time = 3
+        if is_winner:
+            _play_animation(enemy_animation, enemy_move, true)
+        else:
+            _play_animation(player_animation, move, true)
 
     move_timer.start()
 
-func _play_animation(target: AnimatedSprite2D, move: Meta.Moves):
-    if move == Meta.Moves.Pull:
-        target.play("pull")
-    elif move == Meta.Moves.Push:
-        target.play("push")
+func _play_animation(target: AnimatedSprite2D, move: Meta.Moves, is_loser: bool = false):
+    if is_loser:
+        if move == Meta.Moves.Pull:
+            target.play("pull_fall")
+        elif move == Meta.Moves.Push:
+            target.play("push_fall")
+        else:
+            target.play("hold_yoinked")
     else:
-        target.play("hold")
+        if move == Meta.Moves.Pull:
+            target.play("pull")
+        elif move == Meta.Moves.Push:
+            target.play("push")
+        else:
+            target.play("hold")
 
 func _on_move_timer_timeout() -> void:
     if is_encounter_over:
@@ -92,3 +111,11 @@ func _on_move_timer_timeout() -> void:
     else:
         _play_animation(player_animation, Meta.Moves.Hold)
         _play_animation(enemy_animation, Meta.Moves.Hold)
+
+func _on_player_animation_finished():
+    if not player_animation.animation.ends_with("_end") and not is_winner:
+        player_animation.play(player_animation.animation + "_end")
+
+func _on_enemy_animation_finished():
+    if not enemy_animation.animation.ends_with("_end") and is_winner:
+        enemy_animation.play(enemy_animation.animation + "_end")
