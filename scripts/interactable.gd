@@ -17,7 +17,7 @@ func on_focus_gained():
     if not is_interactable:
         return
     if not is_focus:
-        focus_interval = 1
+        focus_interval = get_physics_process_delta_time() * 3
     else:
         focus_interval += get_physics_process_delta_time()
     is_focus = true

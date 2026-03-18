@@ -110,7 +110,8 @@ class GrannyNpc extends Granny:
                 is_stunned = true
                 stats.on_stunned()
                 stats.on_chasing()
-            StateManager.enemies_defeated.append(self )
+            if self not in StateManager.enemies_defeated:
+                StateManager.enemies_defeated.append(self )
             EventBus.on_purse_stolen_updated.emit()
         else:
             if not is_leaving:

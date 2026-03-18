@@ -11,6 +11,7 @@ var police_arriving_count: int = 0
 var police_timer: Timer
 
 var interactable_id: int
+var interactables = []
 
 func _ready() -> void:
     police_timer = Timer.new()
@@ -24,6 +25,8 @@ func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
     EventBus.on_enemy_left.connect(_on_enemy_left)
     EventBus.on_interact.connect(_on_interact)
+
+    update_interactables()
 
 func _on_encounter_start(instance_id: int):
     is_encountered = true
@@ -46,3 +49,6 @@ func _on_interact(instance_id: int):
     var node: Node2D = instance_from_id(instance_id)
     if node is ExploreEnemy:
         EventBus.on_encounter_start.emit(instance_id)
+
+func update_interactables():
+    interactables = get_tree().get_nodes_in_group("Interactable")

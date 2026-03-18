@@ -7,15 +7,13 @@ class_name ExplorePlayer
 @export var arthitis_rate: float = 1
 var granny: Classes.Granny
 
-var interactables = []
+
 var interact_ray_cast_direction_interval = .25
 
 
 func _ready() -> void:
     granny = Classes.Granny.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate)
     StateManager.player = granny
-
-    interactables = get_tree().get_nodes_in_group("Interactable")
 
 
 func _physics_process(delta: float) -> void:
@@ -51,13 +49,29 @@ func _physics_process(delta: float) -> void:
                 collider.move_and_collide(direction * 15)
                 EventBus.on_encounter_start.emit(collider.get_instance_id())
 
+    _check_interact_ray_cast.call_deferred(delta)
+
+    
+func _handle_animation():
+    if velocity != Vector2.ZERO:
+        granny.play_walk(velocity.x < 0)
+    elif granny.can_move():
+        granny.play_idle()
+    else:
+        granny.play_knees_hurt()
+
+
+func _check_interact_ray_cast(delta: float):
+    if not granny.can_move():
+        return
+
     interact_ray_cast_direction_interval -= delta
     if interact_ray_cast_direction_interval <= 0:
         interact_ray_cast_direction_interval = .25
-        if len(interactables) > 0:
-            var closest = interactables[0]
-            var distance = interact_ray_cast.global_position.distance_to(interactables[0].global_position)
-            for interactable in interactables:
+        if len(StateManager.interactables) > 0:
+            var closest = StateManager.interactables[0]
+            var distance = interact_ray_cast.global_position.distance_to(StateManager.interactables[0].global_position)
+            for interactable in StateManager.interactables:
                 var d = interact_ray_cast.global_position.distance_to(interactable.global_position)
                 if d < distance:
                     closest = interactable
@@ -69,11 +83,3 @@ func _physics_process(delta: float) -> void:
         var collider = interact_ray_cast.get_collider()
         if collider is Interactable:
             collider.on_focus_gained()
-
-func _handle_animation():
-    if velocity != Vector2.ZERO:
-        granny.play_walk(velocity.x < 0)
-    elif granny.can_move():
-        granny.play_idle()
-    else:
-        granny.play_knees_hurt()

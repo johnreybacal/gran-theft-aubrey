@@ -58,15 +58,18 @@ theme_override_constants/separation = 20
 
 [node name="PullButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1417905398]
 layout_mode = 2
-text = "Pull"
+theme_override_font_sizes/font_size = 24
+text = "PULL"
 
 [node name="HoldButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1777213736]
 layout_mode = 2
-text = "Hold"
+theme_override_font_sizes/font_size = 24
+text = "HOLD"
 
 [node name="PushButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1320320182]
 layout_mode = 2
-text = "Push
+theme_override_font_sizes/font_size = 24
+text = "PUSH
 "
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PullButton" to="." method="_on_pull_button_pressed"]

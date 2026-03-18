@@ -1,8 +1,8 @@
 extends CharacterBody2D
 class_name ExploreEnemy
 
-@export var move_speed: float = 200
-@export var arthitis_rate: float = 1.5
+@export var move_speed: float = 225
+@export var arthitis_rate: float = 1.25
 var granny: Classes.GrannyNpc
 var player: ExplorePlayer
 
@@ -41,8 +41,9 @@ func _physics_process(delta: float) -> void:
 
     
     if granny.is_leaving and abs(position.x) > 2100:
-        queue_free()
         EventBus.on_enemy_left.emit()
+        free.call_deferred()
+        StateManager.update_interactables.call_deferred()
 
     move_and_slide()
 
@@ -119,6 +120,7 @@ func _leave():
     collision_mask = 1
     navigation_agent.avoidance_mask = 3
     granny.is_leaving = true
+    granny.arthritis_rate = .75
     granny.stats.on_leaving()
     _set_movement_target(Vector2(2500 * (1 if position.x >= 0 else -1), randf_range(position.y - 100, position.y + 100)))
 
