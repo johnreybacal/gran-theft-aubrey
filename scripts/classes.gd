@@ -71,6 +71,7 @@ class GrannyNpc extends Granny:
     var is_avoiding: bool = false
     var is_stunned: bool = false
     var is_stolen: bool = false
+    var is_leaving: bool = false
     
     static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
         var instance = GrannyNpc.new()

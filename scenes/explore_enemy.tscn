@@ -4,14 +4,15 @@
 [ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_explore_sprite_frames.tres" id="2_j7g34"]
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_j7g34"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxtud"]
-size = Vector2(128, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j7g34"]
+radius = 55.0
+height = 180.0
 
 [sub_resource type="Gradient" id="Gradient_cantd"]
-offsets = PackedFloat32Array(0.055989582, 0.42578125, 0.73307294)
+offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_w3v0f"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j7g34"]
 gradient = SubResource("Gradient_cantd")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -28,6 +29,7 @@ fill_to = Vector2(1, 1)
 
 [node name="ExploreEnemy" type="CharacterBody2D" unique_id=2108070940]
 z_index = 5
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_1ytwq")
 
@@ -38,19 +40,19 @@ animation = &"knees_hurt"
 autoplay = "idle"
 frame_progress = 0.006888946
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=848567390]
-shape = SubResource("RectangleShape2D_cxtud")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=250208109]
+shape = SubResource("CapsuleShape2D_j7g34")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=831515124]
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_j7g34")]
 position = Vector2(0, 97)
 
-[node name="Backdrop" type="Sprite2D" parent="." unique_id=488382023]
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=803981547]
 z_index = -1
-position = Vector2(0.50000685, -4.7683716e-07)
-scale = Vector2(3, 3)
-texture = SubResource("GradientTexture2D_w3v0f")
+position = Vector2(1, -5.0000005)
+scale = Vector2(2.5, 3.5)
+texture = SubResource("GradientTexture2D_j7g34")
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=348235111]
 modulate = Color(1, 1, 1, 0.1)

@@ -4,15 +4,16 @@
 [ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_explore_sprite_frames.tres" id="2_yuam7"]
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_yuam7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxtud"]
-size = Vector2(128, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yuam7"]
+radius = 55.0
+height = 180.0
 
-[sub_resource type="Gradient" id="Gradient_cantd"]
+[sub_resource type="Gradient" id="Gradient_1qjc3"]
 offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yuam7"]
-gradient = SubResource("Gradient_cantd")
+gradient = SubResource("Gradient_1qjc3")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -28,25 +29,26 @@ fill_to = Vector2(1, 1)
 
 [node name="ExplorePlayer" type="CharacterBody2D" unique_id=851270054]
 z_index = 5
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_cxtud")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=340199218]
 scale = Vector2(0.75, 0.75)
 sprite_frames = ExtResource("2_yuam7")
-animation = &"knees_hurt"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=398498441]
-shape = SubResource("RectangleShape2D_cxtud")
+shape = SubResource("CapsuleShape2D_yuam7")
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_yuam7")]
 position = Vector2(0, 95)
 
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=694907883]
 z_index = -1
-position = Vector2(1, 0)
-scale = Vector2(3, 3)
+position = Vector2(1, -5.0000005)
+scale = Vector2(2.5, 3.5)
 texture = SubResource("GradientTexture2D_yuam7")
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=669543659]

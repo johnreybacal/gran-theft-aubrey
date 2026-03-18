@@ -5,6 +5,7 @@ const CHASING = "Chasing."
 const AVOIDING = "Avoiding."
 const STUNNED = "Stunned."
 const KNEES_HURT = "Knees Hurt."
+const LEAVING = "Calling Police."
 
 
 @onready var arthritis_bar: TextureProgressBar = $ArthritisBar
@@ -44,6 +45,9 @@ func on_avoiding():
 
 func on_avoiding_end():
     remove_label(AVOIDING)
+
+func on_leaving():
+    add_label(LEAVING)
 
 
 func add_label(text: String):

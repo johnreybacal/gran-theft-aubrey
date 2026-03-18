@@ -38,12 +38,15 @@ func _physics_process(delta: float) -> void:
     velocity = global_position.direction_to(next_path_position) * (move_speed * (.75 if granny.is_avoiding else 1.))
 
     granny.increase_arthritis(delta)
-    
+
+    if granny.is_leaving and abs(position.x) > 2100:
+        queue_free()
+
     move_and_slide()
 
 
 func _handle_animation():
-    if granny.is_avoiding or granny.is_chasing:
+    if granny.is_avoiding or granny.is_chasing or granny.is_leaving:
         if granny.can_move() and not granny.is_stunned:
             granny.play_walk(velocity.x < 0)
         else:
@@ -62,7 +65,7 @@ func _check_intervals(delta: float):
         return true
 
     # Targeting
-    if granny.is_avoiding or granny.is_chasing:
+    if granny.is_avoiding or granny.is_chasing or granny.is_leaving:
         target_interval -= delta
         if target_interval <= 0:
             target_interval = .25
@@ -87,7 +90,11 @@ func _check_intervals(delta: float):
                 granny.is_chasing = false
                 chase_interval = 5
                 granny.stats.on_chasing_end()
-                _set_movement_target(position)
+                granny.stats.on_leaving()
+                # Ignore Bounds
+                collision_mask = 1
+                granny.is_leaving = true
+                _set_movement_target(Vector2(2500 * (1 if position.x >= 0 else -1), position.y))
 
     return false
 

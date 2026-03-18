@@ -3,90 +3,73 @@
 [ext_resource type="Script" uid="uid://bbw8o084ylbys" path="res://scripts/game_explore.gd" id="1_fiwcs"]
 [ext_resource type="PackedScene" uid="uid://cv742kmoulqfk" path="res://scenes/explore_player.tscn" id="1_tutr7"]
 [ext_resource type="PackedScene" uid="uid://cfh1ww543dm42" path="res://scenes/explore_enemy.tscn" id="2_1208y"]
-[ext_resource type="Texture2D" uid="uid://wk4ypjtht2ko" path="res://assets/sprites/map_anim.png" id="4_r354h"]
 [ext_resource type="Texture2D" uid="uid://ucfcpwqmsd5q" path="res://assets/sprites/map.png" id="4_tpdw7"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_fiwcs"]
-vertices = PackedVector2Array(2025.0234, -1017.03125, 2030.9688, 1002.0078, -2046.0625, 1008.97656, -2058.9297, -1029.9609)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tpdw7"]
+vertices = PackedVector2Array(2622, 1014.0078, -2592.0313, 1019.97656, -2599.961, -997.02344, 2622, -1010.96875)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-2069, -1040, 2035, -1027, 2041, 1012, -2056, 1019)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2587, -1012, 2632, -1021, 2632, 1024, -2602, 1030)])
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qvqj8"]
-atlas = ExtResource("4_r354h")
-region = Rect2(0, 0, 4096, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_82kap"]
-atlas = ExtResource("4_r354h")
-region = Rect2(4096, 0, 4096, 2048)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4s7jy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qvqj8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_82kap")
-}],
-"loop": true,
-"name": &"default",
-"speed": 3.0
-}]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r354h"]
 
 [node name="GameExplore" type="Node2D" unique_id=1622595834]
 script = ExtResource("1_fiwcs")
 
 [node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
-position = Vector2(423, 378)
+position = Vector2(-1852, -904)
 
 [node name="Camera2D" type="Camera2D" parent="ExplorePlayer" unique_id=392920982]
 zoom = Vector2(0.75, 0.75)
+limit_left = -2048
+limit_top = -1024
+limit_right = 2048
+limit_bottom = 1024
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
-position = Vector2(821, 361)
+position = Vector2(-1422, -632)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
-navigation_polygon = SubResource("NavigationPolygon_fiwcs")
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1355949240]
-vertices = PackedVector2Array(-1314, -338, -928, -442, -796, -303, -414, -272, -348, -200, -536, -137, -511, -77, -316, 10, -301, 105, -479, 133, -479, 133, -787, 101, -1013, 177, -1393, 29, -1374, -49, -1261, -68, -1261, -68, -1264, -103, -1330, -234)
-
-[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1604640176]
-vertices = PackedVector2Array(139, -206, 104, -52, 318, -5, 716, -24, 917, -68, 873, -244, 641, -363, 327, -329)
-
-[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1834636390]
-vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
-
-[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=28444345]
-position = Vector2(690, 192)
-vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
-
-[node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1593330249]
-position = Vector2(1635, -200)
-vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
-
-[node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=858474564]
-position = Vector2(1974, -624)
-vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
-
-[node name="NavigationObstacle2D7" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1138316740]
-position = Vector2(1302, -1038)
-vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -464, 400, -639, 415, -639, 415)
-
-[node name="NavigationObstacle2D8" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=1331574256]
-position = Vector2(-334, -1201)
-vertices = PackedVector2Array(-687, 497, -639, 591, -398, 575, -376, 456, -450, 433, -616, 439)
-
-[node name="NavigationObstacle2D9" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=559706139]
-position = Vector2(-334, -1201)
-vertices = PackedVector2Array(-1617, 2015, -1633, 1936, -1391, 2074, -1420, 2118)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=451189809]
-sprite_frames = SubResource("SpriteFrames_4s7jy")
-autoplay = "default"
+navigation_polygon = SubResource("NavigationPolygon_tpdw7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182650496]
 z_index = -1
 texture = ExtResource("4_tpdw7")
+
+[node name="Bounds" type="Node2D" parent="." unique_id=1456287475]
+
+[node name="Bottom" type="StaticBody2D" parent="Bounds" unique_id=70521101]
+position = Vector2(0, 1028)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Bottom" unique_id=1516136219]
+shape = SubResource("WorldBoundaryShape2D_r354h")
+
+[node name="Top" type="StaticBody2D" parent="Bounds" unique_id=1450516101]
+position = Vector2(0, -1028)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Top" unique_id=1870219185]
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_r354h")
+
+[node name="Left" type="StaticBody2D" parent="Bounds" unique_id=1091911555]
+position = Vector2(-2048, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Left" unique_id=1700689799]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_r354h")
+
+[node name="Right" type="StaticBody2D" parent="Bounds" unique_id=2099247068]
+position = Vector2(2048, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Right" unique_id=196644913]
+rotation = 4.712389
+shape = SubResource("WorldBoundaryShape2D_r354h")
