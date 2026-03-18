@@ -1,13 +1,21 @@
 extends CharacterBody2D
 class_name ExplorePlayer
 
+@onready var interact_ray_cast: RayCast2D = $InteractRayCast
+
 @export var move_speed: float = 250
 @export var arthitis_rate: float = 1
 var granny: Classes.Granny
 
+var interactables = []
+var interact_ray_cast_direction_interval = .25
+
+
 func _ready() -> void:
     granny = Classes.Granny.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate)
     StateManager.player = granny
+
+    interactables = get_tree().get_nodes_in_group("Interactable")
 
 
 func _physics_process(delta: float) -> void:
@@ -35,11 +43,32 @@ func _physics_process(delta: float) -> void:
             if collider is ExploreEnemy:
                 if not collider.granny.can_encounter():
                     return
+                if not collider.granny.is_chasing:
+                    return
                 var direction = collider.position.direction_to(position).normalized()
                 move_and_collide(direction * 15)
                 direction = position.direction_to(collider.position).normalized()
                 collider.move_and_collide(direction * 15)
                 EventBus.on_encounter_start.emit(collider.get_instance_id())
+
+    interact_ray_cast_direction_interval -= delta
+    if interact_ray_cast_direction_interval <= 0:
+        interact_ray_cast_direction_interval = .25
+        if len(interactables) > 0:
+            var closest = interactables[0]
+            var distance = interact_ray_cast.global_position.distance_to(interactables[0].global_position)
+            for interactable in interactables:
+                var d = interact_ray_cast.global_position.distance_to(interactable.global_position)
+                if d < distance:
+                    closest = interactable
+            var direction = interact_ray_cast.global_position.direction_to(closest.global_position)
+            interact_ray_cast.target_position = direction * 100
+
+
+    if interact_ray_cast.is_colliding():
+        var collider = interact_ray_cast.get_collider()
+        if collider is Interactable:
+            collider.on_focus_gained()
 
 func _handle_animation():
     if velocity != Vector2.ZERO:

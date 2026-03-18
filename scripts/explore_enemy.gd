@@ -12,6 +12,7 @@ var avoid_interval: float = 2
 var chase_interval: float = 5
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var interactable: Interactable = $Interactable
 
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
@@ -114,6 +115,7 @@ func _check_intervals(delta: float):
 
         
 func _leave():
+    interactable.is_interactable = false
     collision_mask = 1
     navigation_agent.avoidance_mask = 3
     granny.is_leaving = true
@@ -141,8 +143,10 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
     if is_loser:
         # Ignore player avoidance when chasing
         navigation_agent.avoidance_mask = 2
+        interactable.is_interactable = false
     else:
         navigation_agent.avoidance_mask = 3
+        interactable.is_interactable = true
 
     
     granny.on_encounter_end(is_loser)
