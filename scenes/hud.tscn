@@ -46,6 +46,14 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 24
 text = "Knees hurt"
 
+[node name="PurseStolenLabel" type="Label" parent="VBoxContainer" unique_id=554397438]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 24
+text = "Purse Stolen: 0"
+
 [node name="Stars" type="HBoxContainer" parent="VBoxContainer" unique_id=1547490240]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2

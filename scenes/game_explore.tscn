@@ -17,7 +17,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-2587, -1012, 2632, -10
 script = ExtResource("1_fiwcs")
 
 [node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
-position = Vector2(-1852, -904)
+position = Vector2(-1567, -578)
 
 [node name="Camera2D" type="Camera2D" parent="ExplorePlayer" unique_id=392920982]
 zoom = Vector2(0.75, 0.75)
@@ -29,10 +29,10 @@ position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
-position = Vector2(-1422, -632)
+position = Vector2(-284, -311)
 
 [node name="ExploreEnemy2" parent="." unique_id=2108070940 instance=ExtResource("2_1208y")]
-position = Vector2(-1336, 41)
+position = Vector2(-1547, 293)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
 navigation_polygon = SubResource("NavigationPolygon_tpdw7")

@@ -101,16 +101,20 @@ class GrannyNpc extends Granny:
         if encounter_count > 2:
             is_leaving = true
             stats.on_leaving()
-        elif is_loser:
-            is_chasing = true
-            is_stunned = true
-            stats.on_stunned()
-            stats.on_chasing()
+        if is_loser:
+            if not is_leaving:
+                is_chasing = true
+                is_stunned = true
+                stats.on_stunned()
+                stats.on_chasing()
             StateManager.enemies_defeated.append(self )
+            EventBus.on_purse_stolen_updated.emit()
         else:
-            is_avoiding = true
-            stats.on_avoiding()
+            if not is_leaving:
+                is_avoiding = true
+                stats.on_avoiding()
             if self in StateManager.enemies_defeated:
                 var index: int = StateManager.enemies_defeated.find(self )
                 if index != -1:
                     StateManager.enemies_defeated.remove_at(index)
+                    EventBus.on_purse_stolen_updated.emit()

@@ -13,11 +13,22 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_fiwcs")
 
 [sub_resource type="Gradient" id="Gradient_pewl6"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0.4351923, 0.43519226, 0.43519226, 1)
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hpqlm"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hpqlm"]
 gradient = SubResource("Gradient_pewl6")
+width = 1028
+
+[sub_resource type="Gradient" id="Gradient_j7g34"]
+offsets = PackedFloat32Array(0.5462963, 0.9660494)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pewl6"]
+gradient = SubResource("Gradient_j7g34")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
 
 [node name="GameFight" type="Node2D" unique_id=872867695]
 script = ExtResource("1_ysmxf")
@@ -58,9 +69,21 @@ texture = SubResource("GradientTexture2D_ysmxf")
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=915769826]
 z_index = -1
-position = Vector2(4.4999695, 240.5)
-scale = Vector2(20.109375, 4.453125)
-texture = SubResource("GradientTexture2D_hpqlm")
+position = Vector2(0, 100)
+scale = Vector2(1, 2)
+texture = SubResource("GradientTexture1D_hpqlm")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D4" unique_id=1790879024]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(-115, 11)
+scale = Vector2(1.525, 0.334)
+texture = SubResource("GradientTexture2D_pewl6")
+
+[node name="Shadow2" type="Sprite2D" parent="Sprite2D4" unique_id=1267223841]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(118, 10.5)
+scale = Vector2(1.525, 0.334)
+texture = SubResource("GradientTexture2D_pewl6")
 
 [node name="MoveTimer" type="Timer" parent="." unique_id=539509820]
 one_shot = true
