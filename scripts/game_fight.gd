@@ -1,8 +1,9 @@
 extends Node2D
 
 @onready var hud: HudFight = $CanvasLayer/HudFight
-@onready var player_animation: AnimatedSprite2D = $Player
-@onready var enemy_animation: AnimatedSprite2D = $Enemy
+@onready var player: AnimatedSprite2D = $Player
+@onready var purse: AnimatedSprite2D = $Purse
+@onready var enemy: AnimatedSprite2D = $Enemy
 @onready var move_timer: Timer = $MoveTimer
 
 var is_encounter_over: bool = false
@@ -16,8 +17,8 @@ func _ready() -> void:
     hud.set_max_arthritis(StateManager.player.max_arthritis)
     hud.move_selected.connect(_on_move)
 
-    player_animation.animation_finished.connect(_on_player_animation_finished)
-    enemy_animation.animation_finished.connect(_on_enemy_animation_finished)
+    player.animation_finished.connect(_on_player_animation_finished)
+    enemy.animation_finished.connect(_on_enemy_animation_finished)
 
 func _on_visibility_changed() -> void:
     $CanvasLayer.visible = visible
@@ -30,9 +31,13 @@ func _on_encounter_start():
     hud.clear_log()
     hud.update_arthritis(StateManager.player.arthritis)
     
-    _play_animation(player_animation, Meta.Moves.Hold)
-    _play_animation(enemy_animation, Meta.Moves.Hold)
+    _play_animation(player, Meta.Moves.Hold)
+    _play_animation(enemy, Meta.Moves.Hold)
     $Camera2D.enabled = true
+
+    purse.rotation_degrees = 0
+    purse.position = Vector2(0, 30)
+    purse.flip_v = false
 
 func _on_encounter_end():
     hide()
@@ -44,10 +49,17 @@ func _on_move(move: Meta.Moves):
         return
     var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
-    _play_animation(player_animation, move)
-    _play_animation(enemy_animation, enemy_move)
+    _play_animation(player, move)
+    _play_animation(enemy, enemy_move)
 
     hud.append_log("You used " + Meta.get_move_name(move) + " | Enemy used " + Meta.get_move_name(enemy_move))
+
+    if move == Meta.Moves.Pull:
+        purse.scale.x += .125
+        purse.position.x -= 5
+    if enemy_move == Meta.Moves.Pull:
+        purse.scale.x += .125
+        purse.position.x += 5
     
     if move == enemy_move:
         is_draw = true
@@ -78,17 +90,17 @@ func _on_move(move: Meta.Moves):
             is_encounter_over = true
             move_timer.wait_time = 3
             hud.append_log("LOST: Your knee hurts")
-            _play_animation(player_animation, move, true)
-            _play_win_animation.call_deferred(enemy_animation)
+            _play_animation(player, move, true)
+            _play_win_animation.call_deferred(enemy)
     else:
         is_encounter_over = true
         move_timer.wait_time = 3
         if is_winner:
-            _play_animation(enemy_animation, enemy_move, true)
-            _play_win_animation.call_deferred(player_animation)
+            _play_animation(enemy, enemy_move, true)
+            _play_win_animation.call_deferred(player)
         else:
-            _play_animation(player_animation, move, true)
-            _play_win_animation.call_deferred(enemy_animation)
+            _play_animation(player, move, true)
+            _play_win_animation.call_deferred(enemy)
 
     move_timer.start()
 
@@ -111,18 +123,27 @@ func _play_animation(target: AnimatedSprite2D, move: Meta.Moves, is_loser: bool 
 func _play_win_animation(target: AnimatedSprite2D):
     await get_tree().create_timer(1.0).timeout
     target.play("win")
+    
+    purse.rotation_degrees = 90
+    if is_winner:
+        purse.position = Vector2(-75, 35)
+    else:
+        purse.position = Vector2(75, 35)
+        purse.flip_v = true
 
 func _on_move_timer_timeout() -> void:
     if is_encounter_over:
         EventBus.on_encounter_end.emit(StateManager.encounter_enemy_id, is_winner)
     else:
-        _play_animation(player_animation, Meta.Moves.Hold)
-        _play_animation(enemy_animation, Meta.Moves.Hold)
+        _play_animation(player, Meta.Moves.Hold)
+        _play_animation(enemy, Meta.Moves.Hold)
+        purse.scale.x = 1
+        purse.position.x = 0
 
 func _on_player_animation_finished():
-    if not player_animation.animation.ends_with("_end") and not is_winner:
-        player_animation.play(player_animation.animation + "_end")
+    if not player.animation.ends_with("_end") and not is_winner:
+        player.play(player.animation + "_end")
 
 func _on_enemy_animation_finished():
-    if not enemy_animation.animation.ends_with("_end") and is_winner:
-        enemy_animation.play(enemy_animation.animation + "_end")
+    if not enemy.animation.ends_with("_end") and is_winner:
+        enemy.play(enemy.animation + "_end")

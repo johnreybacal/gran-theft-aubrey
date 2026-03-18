@@ -1,9 +1,50 @@
 [gd_scene format=3 uid="uid://dq1f3a7kx5b3m"]
 
-[ext_resource type="Texture2D" uid="uid://un76w2rvhpw7" path="res://icon.svg" id="1_cxknj"]
 [ext_resource type="Script" uid="uid://do1dah6xinhq4" path="res://scripts/game_fight.gd" id="1_ysmxf"]
 [ext_resource type="PackedScene" uid="uid://de8gr68jo3eno" path="res://scenes/hud_fight.tscn" id="2_fxrkh"]
 [ext_resource type="SpriteFrames" uid="uid://c3fivx5xvy8ox" path="res://resources/granny_fight_sprite_frames.tres" id="2_ysmxf"]
+[ext_resource type="Texture2D" uid="uid://dpxldwadc6ywm" path="res://assets/sprites/purse.png" id="3_pewl6"]
+
+[sub_resource type="Gradient" id="Gradient_j7g34"]
+offsets = PackedFloat32Array(0.5462963, 0.9660494)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pewl6"]
+gradient = SubResource("Gradient_j7g34")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpqlm"]
+atlas = ExtResource("3_pewl6")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6vsr"]
+atlas = ExtResource("3_pewl6")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ufdv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpqlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6vsr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_1qjc3"]
+offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hpqlm"]
+gradient = SubResource("Gradient_1qjc3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_fiwcs"]
 offsets = PackedFloat32Array(1)
@@ -20,39 +61,50 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_pewl6")
 width = 1028
 
-[sub_resource type="Gradient" id="Gradient_j7g34"]
-offsets = PackedFloat32Array(0.5462963, 0.9660494)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pewl6"]
-gradient = SubResource("Gradient_j7g34")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 1)
-
 [node name="GameFight" type="Node2D" unique_id=872867695]
 script = ExtResource("1_ysmxf")
 
 [node name="Player" type="AnimatedSprite2D" parent="." unique_id=1463870124]
 z_index = 1
-position = Vector2(-111, 0)
+position = Vector2(-105, 0)
 sprite_frames = ExtResource("2_ysmxf")
-animation = &"win"
+animation = &"hold"
 autoplay = "hold"
-frame_progress = 0.93297553
+frame_progress = 0.03810904
+
+[node name="Shadow" type="Sprite2D" parent="Player" unique_id=1790879024]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(-10, 122)
+scale = Vector2(1.525, 0.668)
+texture = SubResource("GradientTexture2D_pewl6")
+
+[node name="Purse" type="AnimatedSprite2D" parent="." unique_id=372568570]
+z_index = 5
+position = Vector2(0, 30)
+sprite_frames = SubResource("SpriteFrames_0ufdv")
+autoplay = "default"
+frame_progress = 0.8314093
 
 [node name="Enemy" type="AnimatedSprite2D" parent="." unique_id=1412914829]
 z_index = 1
-position = Vector2(109, 0)
+position = Vector2(105, 0)
 sprite_frames = ExtResource("2_ysmxf")
-animation = &"push"
+animation = &"hold"
 autoplay = "hold"
+frame_progress = 0.005072095
 flip_h = true
 
-[node name="Purse" type="Sprite2D" parent="." unique_id=773172291]
-position = Vector2(-1, 32)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_cxknj")
+[node name="Shadow2" type="Sprite2D" parent="Enemy" unique_id=1267223841]
+modulate = Color(1, 1, 1, 0.1)
+position = Vector2(13, 121)
+scale = Vector2(1.525, 0.668)
+texture = SubResource("GradientTexture2D_pewl6")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=651798517]
+modulate = Color(1, 1, 1, 0.78700006)
+position = Vector2(2.3841858e-07, 49)
+scale = Vector2(10, 5)
+texture = SubResource("GradientTexture2D_hpqlm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1293225925]
 
@@ -61,29 +113,17 @@ texture = ExtResource("1_cxknj")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1781743093]
 position_smoothing_enabled = true
 
-[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=2102962692]
+[node name="BG" type="Sprite2D" parent="." unique_id=2102962692]
 z_index = -1
 position = Vector2(4.4999695, 6.5)
 scale = Vector2(20.109375, 11.765625)
 texture = SubResource("GradientTexture2D_ysmxf")
 
-[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=915769826]
+[node name="Line" type="Sprite2D" parent="." unique_id=915769826]
 z_index = -1
 position = Vector2(0, 100)
 scale = Vector2(1, 2)
 texture = SubResource("GradientTexture1D_hpqlm")
-
-[node name="Shadow" type="Sprite2D" parent="Sprite2D4" unique_id=1790879024]
-modulate = Color(1, 1, 1, 0.1)
-position = Vector2(-115, 11)
-scale = Vector2(1.525, 0.334)
-texture = SubResource("GradientTexture2D_pewl6")
-
-[node name="Shadow2" type="Sprite2D" parent="Sprite2D4" unique_id=1267223841]
-modulate = Color(1, 1, 1, 0.1)
-position = Vector2(118, 10.5)
-scale = Vector2(1.525, 0.334)
-texture = SubResource("GradientTexture2D_pewl6")
 
 [node name="MoveTimer" type="Timer" parent="." unique_id=539509820]
 one_shot = true
