@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://44h8jx170cao"]
+
+[ext_resource type="Texture2D" uid="uid://crx1112vc0p4h" path="res://assets/sprites/bush.png" id="1_lad4k"]
+
+[sub_resource type="Gradient" id="Gradient_lad4k"]
+offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ehqem"]
+gradient = SubResource("Gradient_lad4k")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu87o"]
+atlas = ExtResource("1_lad4k")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ftm5"]
+atlas = ExtResource("1_lad4k")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jpk7d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu87o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ftm5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lad4k"]
+size = Vector2(10, 120)
+
+[node name="Bush" type="StaticBody2D" unique_id=2020936747]
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=1991038711]
+position = Vector2(1, -57)
+scale = Vector2(4, 3)
+texture = SubResource("GradientTexture2D_ehqem")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1371662396]
+position = Vector2(0, -74)
+sprite_frames = SubResource("SpriteFrames_jpk7d")
+autoplay = "default"
+frame_progress = 0.04034253
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=511328152]
+position = Vector2(0, -62)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_lad4k")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1451726624]
+position = Vector2(0, -58)
+radius = 58.72

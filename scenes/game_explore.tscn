@@ -4,16 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://cv742kmoulqfk" path="res://scenes/explore_player.tscn" id="1_tutr7"]
 [ext_resource type="PackedScene" uid="uid://cfh1ww543dm42" path="res://scenes/explore_enemy.tscn" id="2_1208y"]
 [ext_resource type="Texture2D" uid="uid://ucfcpwqmsd5q" path="res://assets/sprites/map.png" id="4_tpdw7"]
+[ext_resource type="PackedScene" uid="uid://44h8jx170cao" path="res://scenes/bush.tscn" id="5_qvqj8"]
 [ext_resource type="PackedScene" uid="uid://cfcbjj5bpnt6u" path="res://scenes/hud.tscn" id="5_r354h"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tpdw7"]
-vertices = PackedVector2Array(2622, 1014.0078, -2592.0313, 1019.97656, -2599.961, -997.02344, 2622, -1010.96875)
+vertices = PackedVector2Array(2619.0078, -890.0078, 2621.9766, 1014.0078, -2591.8281, 1019.97656, -2560.1563, -897.97656)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-2587, -1012, 2632, -1021, 2632, 1024, -2602, 1030)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2570, -908, 2629, -900, 2632, 1024, -2602, 1030)])
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r354h"]
 
 [node name="GameExplore" type="Node2D" unique_id=1622595834]
+y_sort_enabled = true
 script = ExtResource("1_fiwcs")
 
 [node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
@@ -32,7 +34,7 @@ position_smoothing_speed = 2.0
 position = Vector2(-1170, -465)
 
 [node name="ExploreEnemy2" parent="." unique_id=2108070940 instance=ExtResource("2_1208y")]
-position = Vector2(-1547, 293)
+position = Vector2(-1353, 498)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
 navigation_polygon = SubResource("NavigationPolygon_tpdw7")
@@ -77,6 +79,42 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Right" unique_id=196644913]
 rotation = 4.712389
 shape = SubResource("WorldBoundaryShape2D_r354h")
+
+[node name="Bushes" type="Node2D" parent="." unique_id=778954629]
+y_sort_enabled = true
+
+[node name="Bush" parent="Bushes" unique_id=2020936747 instance=ExtResource("5_qvqj8")]
+position = Vector2(-1546, 284)
+
+[node name="Bush2" parent="Bushes" unique_id=651366439 instance=ExtResource("5_qvqj8")]
+position = Vector2(-1022, 603)
+
+[node name="Bush3" parent="Bushes" unique_id=1179722764 instance=ExtResource("5_qvqj8")]
+position = Vector2(-589, 520)
+
+[node name="Bush4" parent="Bushes" unique_id=877153470 instance=ExtResource("5_qvqj8")]
+position = Vector2(-462, -616)
+
+[node name="Bush5" parent="Bushes" unique_id=2019474562 instance=ExtResource("5_qvqj8")]
+position = Vector2(-151, 408)
+
+[node name="Bush6" parent="Bushes" unique_id=175268861 instance=ExtResource("5_qvqj8")]
+position = Vector2(824, -565)
+
+[node name="Bush7" parent="Bushes" unique_id=1463202699 instance=ExtResource("5_qvqj8")]
+position = Vector2(1166, 358)
+
+[node name="Bush8" parent="Bushes" unique_id=1701264245 instance=ExtResource("5_qvqj8")]
+position = Vector2(1412, -106)
+
+[node name="Bush9" parent="Bushes" unique_id=56474530 instance=ExtResource("5_qvqj8")]
+position = Vector2(1671, 335)
+
+[node name="Bush10" parent="Bushes" unique_id=776600003 instance=ExtResource("5_qvqj8")]
+position = Vector2(693, 618)
+
+[node name="Bush11" parent="Bushes" unique_id=772869919 instance=ExtResource("5_qvqj8")]
+position = Vector2(221, 623)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=46223926]
 
