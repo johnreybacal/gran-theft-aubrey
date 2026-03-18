@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cfcbjj5bpnt6u"]
+
+[ext_resource type="Script" uid="uid://cfr8l3qvu48p6" path="res://scripts/hud.gd" id="1_oo0fn"]
+[ext_resource type="Script" uid="uid://cd80mqw3pbl7g" path="res://scripts/granny_stats.gd" id="2_5ysmq"]
+
+[sub_resource type="Gradient" id="Gradient_ppurl"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.64369816, 3.85046e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_toqtt"]
+gradient = SubResource("Gradient_ppurl")
+width = 128
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_reeqg"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.86647785, 0.2576891, 7.70092e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ahhtf"]
+gradient = SubResource("Gradient_reeqg")
+width = 128
+height = 16
+
+[node name="Hud" type="Control" unique_id=2120957353]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oo0fn")
+
+[node name="GrannyStats" type="VBoxContainer" parent="." unique_id=1087757187]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 138.0
+offset_bottom = 53.0
+script = ExtResource("2_5ysmq")
+
+[node name="ArthritisBar" type="TextureProgressBar" parent="GrannyStats" unique_id=1513119154]
+layout_mode = 2
+step = 0.1
+texture_under = SubResource("GradientTexture2D_toqtt")
+texture_progress = SubResource("GradientTexture2D_ahhtf")
+
+[node name="StateLabel" type="Label" parent="GrannyStats" unique_id=7701898]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Knees hurt"

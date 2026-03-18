@@ -43,6 +43,7 @@ autoplay = "idle"
 shape = SubResource("CapsuleShape2D_yuam7")
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_yuam7")]
+visible = false
 position = Vector2(0, 95)
 
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=694907883]

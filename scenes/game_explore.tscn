@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cv742kmoulqfk" path="res://scenes/explore_player.tscn" id="1_tutr7"]
 [ext_resource type="PackedScene" uid="uid://cfh1ww543dm42" path="res://scenes/explore_enemy.tscn" id="2_1208y"]
 [ext_resource type="Texture2D" uid="uid://ucfcpwqmsd5q" path="res://assets/sprites/map.png" id="4_tpdw7"]
+[ext_resource type="PackedScene" uid="uid://cfcbjj5bpnt6u" path="res://scenes/hud.tscn" id="5_r354h"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tpdw7"]
 vertices = PackedVector2Array(2622, 1014.0078, -2592.0313, 1019.97656, -2599.961, -997.02344, 2622, -1010.96875)
@@ -73,3 +74,9 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Right" unique_id=196644913]
 rotation = 4.712389
 shape = SubResource("WorldBoundaryShape2D_r354h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=46223926]
+
+[node name="Hud" parent="CanvasLayer" unique_id=2120957353 instance=ExtResource("5_r354h")]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
