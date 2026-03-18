@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://bscmmh7v8lsyd"]
+
+[ext_resource type="FontFile" uid="uid://cw08vuluhp0gy" path="res://assets/fonts/GloriaHallelujah-Regular.ttf" id="1_d4nwg"]
+
+[resource]
+default_font = ExtResource("1_d4nwg")

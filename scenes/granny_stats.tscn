@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cd80mqw3pbl7g" path="res://scripts/granny_stats.gd" id="1_c44af"]
 [ext_resource type="Texture2D" uid="uid://c2gjm1dkavytm" path="res://assets/sprites/bar_bg.png" id="2_2x8ls"]
 [ext_resource type="Texture2D" uid="uid://dbatgdvst2olj" path="res://assets/sprites/bar_value.png" id="3_k4ige"]
+[ext_resource type="Theme" uid="uid://bscmmh7v8lsyd" path="res://resources/theme.tres" id="4_k4ige"]
 
 [node name="GrannyStats" type="Node2D" unique_id=284626914]
 script = ExtResource("1_c44af")
@@ -28,5 +29,7 @@ offset_top = 19.0
 offset_right = 20.0
 offset_bottom = 42.0
 grow_horizontal = 2
+theme = ExtResource("4_k4ige")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 text = "Knees hurt"

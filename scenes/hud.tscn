@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cfcbjj5bpnt6u"]
 
 [ext_resource type="Script" uid="uid://cfr8l3qvu48p6" path="res://scripts/hud.gd" id="1_oo0fn"]
+[ext_resource type="Theme" uid="uid://bscmmh7v8lsyd" path="res://resources/theme.tres" id="1_uo2fv"]
 [ext_resource type="Script" uid="uid://cd80mqw3pbl7g" path="res://scripts/granny_stats.gd" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://c2gjm1dkavytm" path="res://assets/sprites/bar_bg.png" id="3_6fi6k"]
 [ext_resource type="Texture2D" uid="uid://dbatgdvst2olj" path="res://assets/sprites/bar_value.png" id="4_uo2fv"]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_uo2fv")
 script = ExtResource("1_oo0fn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=99673316]
@@ -34,6 +36,9 @@ texture_progress = ExtResource("4_uo2fv")
 [node name="StateLabel" type="Label" parent="VBoxContainer/GrannyStats" unique_id=7701898]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
 text = "Knees hurt"
 
 [node name="Stars" type="HBoxContainer" parent="VBoxContainer" unique_id=1547490240]

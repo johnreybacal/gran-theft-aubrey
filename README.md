@@ -36,3 +36,6 @@ end
 - press "M" to toggle audio
   - wears / removes hearing aid
 - interactable speaker to toggle BGM
+
+## Credits
+- Font: https://fonts.google.com/specimen/Gloria+Hallelujah
