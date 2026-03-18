@@ -31,6 +31,9 @@ position_smoothing_speed = 2.0
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
 position = Vector2(-1422, -632)
 
+[node name="ExploreEnemy2" parent="." unique_id=2108070940 instance=ExtResource("2_1208y")]
+position = Vector2(-1336, 41)
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
 navigation_polygon = SubResource("NavigationPolygon_tpdw7")
 

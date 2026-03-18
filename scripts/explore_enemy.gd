@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 
     if granny.is_leaving and abs(position.x) > 2100:
         queue_free()
+        EventBus.on_enemy_left.emit()
 
     move_and_slide()
 

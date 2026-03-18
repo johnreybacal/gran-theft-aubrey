@@ -1,24 +1,8 @@
 [gd_scene format=3 uid="uid://cpyks128hw45y"]
 
 [ext_resource type="Script" uid="uid://cd80mqw3pbl7g" path="res://scripts/granny_stats.gd" id="1_c44af"]
-
-[sub_resource type="Gradient" id="Gradient_ppurl"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0.64369816, 3.85046e-07, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_c44af"]
-gradient = SubResource("Gradient_ppurl")
-width = 128
-height = 16
-
-[sub_resource type="Gradient" id="Gradient_reeqg"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.86647785, 0.2576891, 7.70092e-07, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2x8ls"]
-gradient = SubResource("Gradient_reeqg")
-width = 128
-height = 16
+[ext_resource type="Texture2D" uid="uid://c2gjm1dkavytm" path="res://assets/sprites/bar_bg.png" id="2_2x8ls"]
+[ext_resource type="Texture2D" uid="uid://dbatgdvst2olj" path="res://assets/sprites/bar_value.png" id="3_k4ige"]
 
 [node name="GrannyStats" type="Node2D" unique_id=284626914]
 script = ExtResource("1_c44af")
@@ -32,8 +16,8 @@ offset_right = 32.0
 offset_bottom = 16.0
 grow_horizontal = 2
 step = 0.1
-texture_under = SubResource("GradientTexture2D_c44af")
-texture_progress = SubResource("GradientTexture2D_2x8ls")
+texture_under = ExtResource("2_2x8ls")
+texture_progress = ExtResource("3_k4ige")
 
 [node name="StateLabel" type="Label" parent="." unique_id=1104287431]
 anchors_preset = 5
