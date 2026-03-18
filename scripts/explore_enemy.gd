@@ -71,7 +71,12 @@ func _check_intervals(delta: float):
             target_interval = .25
             if granny.is_avoiding:
                 var direction = player.position.direction_to(position)
-                _set_movement_target(position + (direction * 100))
+                var target_position = position + (direction * 300)
+                if abs(target_position.x) > 2048:
+                    target_position.y += 300 * (1 if position.y < 0 else -1)
+                if abs(target_position.y) > 1024:
+                    target_position.x += 300 * (1 if position.x < 0 else -1)
+                _set_movement_target(target_position)
             elif granny.is_chasing:
                 _set_movement_target(player.position)
 
