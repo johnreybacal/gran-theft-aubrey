@@ -32,3 +32,7 @@ end
 - future aubrey: unbeatable, after X defeats, cutscene: future aubrey has no purse and is happy
 - must return purse to everyone, cutscene, share story :)
 
+## IDEA
+- press "M" to toggle audio
+  - wears / removes hearing aid
+- interactable speaker to toggle BGM
