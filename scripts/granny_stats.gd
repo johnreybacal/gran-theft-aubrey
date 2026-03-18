@@ -47,6 +47,8 @@ func on_avoiding_end():
     remove_label(AVOIDING)
 
 func on_leaving():
+    remove_label(AVOIDING)
+    remove_label(CHASING)
     add_label(LEAVING)
 
 

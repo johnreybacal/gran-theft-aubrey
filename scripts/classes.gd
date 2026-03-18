@@ -72,31 +72,42 @@ class GrannyNpc extends Granny:
     var is_stunned: bool = false
     var is_stolen: bool = false
     var is_leaving: bool = false
+    var encounter_count: int = 0
     
     static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
         var instance = GrannyNpc.new()
         instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
         return instance
 
-    func is_moving():
-        return is_chasing or is_avoiding
+    func is_on_the_move():
+        return is_chasing or is_avoiding or is_leaving
 
     func can_encounter():
+        if is_leaving:
+            return false
         if not is_stolen:
             return true
         return is_chasing
 
     func on_encounter_end(is_loser: bool):
         is_stolen = is_loser
-        if is_loser:
-            is_avoiding = false
+        
+        encounter_count += 1
+
+        is_chasing = false
+        is_avoiding = false
+        is_leaving = false
+
+        if encounter_count > 2:
+            is_leaving = true
+            stats.on_leaving()
+        elif is_loser:
             is_chasing = true
             is_stunned = true
             stats.on_stunned()
             stats.on_chasing()
             StateManager.enemies_defeated.append(self )
         else:
-            is_chasing = false
             is_avoiding = true
             stats.on_avoiding()
             if self in StateManager.enemies_defeated:

@@ -23,21 +23,26 @@ offset_top = 12.0
 offset_right = 148.0
 offset_bottom = 126.0
 
-[node name="GrannyStats" type="VBoxContainer" parent="VBoxContainer" unique_id=1087757187]
+[node name="GrannyStats" type="HBoxContainer" parent="VBoxContainer" unique_id=1150983091]
 layout_mode = 2
+theme_override_constants/separation = 20
 script = ExtResource("2_5ysmq")
 
 [node name="ArthritisBar" type="TextureProgressBar" parent="VBoxContainer/GrannyStats" unique_id=1613047880]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 step = 0.1
 texture_under = ExtResource("3_6fi6k")
 texture_progress = ExtResource("4_uo2fv")
 
 [node name="StateLabel" type="Label" parent="VBoxContainer/GrannyStats" unique_id=7701898]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 4
+theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 24
 text = "Knees hurt"
 
@@ -48,3 +53,6 @@ layout_mode = 2
 [node name="PoliceTimerLabel" type="Label" parent="VBoxContainer" unique_id=153435157]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 24

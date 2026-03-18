@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_animation():
-    if granny.is_avoiding or granny.is_chasing or granny.is_leaving:
+    if granny.is_on_the_move():
         if granny.can_move() and not granny.is_stunned:
             granny.play_walk(velocity.x < 0)
         else:
@@ -66,7 +66,7 @@ func _check_intervals(delta: float):
         return true
 
     # Targeting
-    if granny.is_avoiding or granny.is_chasing or granny.is_leaving:
+    if granny.is_on_the_move():
         target_interval -= delta
         if target_interval <= 0:
             target_interval = .25
@@ -96,14 +96,19 @@ func _check_intervals(delta: float):
                 granny.is_chasing = false
                 chase_interval = 5
                 granny.stats.on_chasing_end()
-                granny.stats.on_leaving()
                 # Ignore Bounds
-                collision_mask = 1
-                granny.is_leaving = true
-                _set_movement_target(Vector2(2500 * (1 if position.x >= 0 else -1), position.y))
+                _leave()
+
+        if granny.is_leaving and collision_mask != 1:
+            _leave()
 
     return false
 
+func _leave():
+    collision_mask = 1
+    granny.is_leaving = true
+    granny.stats.on_leaving()
+    _set_movement_target(Vector2(2500 * (1 if position.x >= 0 else -1), position.y))
 
 func _actor_setup():
     # Wait for the first physics frame so the NavigationServer can sync.
@@ -122,5 +127,5 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
     stun_interval = 1
     avoid_interval = 2
     chase_interval = 5
-
+    
     granny.on_encounter_end(is_loser)
