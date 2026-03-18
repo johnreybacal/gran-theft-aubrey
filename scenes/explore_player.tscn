@@ -46,6 +46,12 @@ shape = SubResource("CapsuleShape2D_yuam7")
 visible = false
 position = Vector2(0, 95)
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1194832554]
+avoidance_enabled = true
+radius = 100.0
+avoidance_mask = 0
+debug_enabled = true
+
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=694907883]
 z_index = -1
 position = Vector2(1, -5.0000005)

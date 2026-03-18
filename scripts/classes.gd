@@ -79,6 +79,9 @@ class GrannyNpc extends Granny:
         instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
         return instance
 
+    func can_move():
+        return super.can_move() and not is_stunned
+
     func is_on_the_move():
         return is_chasing or is_avoiding or is_leaving
 

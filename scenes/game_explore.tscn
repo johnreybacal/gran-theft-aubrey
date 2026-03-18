@@ -29,7 +29,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
-position = Vector2(-284, -311)
+position = Vector2(-1170, -465)
 
 [node name="ExploreEnemy2" parent="." unique_id=2108070940 instance=ExtResource("2_1208y")]
 position = Vector2(-1547, 293)

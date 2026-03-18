@@ -45,7 +45,10 @@ shape = SubResource("CapsuleShape2D_j7g34")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=831515124]
 avoidance_enabled = true
-radius = 50.0
+radius = 100.0
+avoidance_layers = 2
+avoidance_mask = 3
+debug_enabled = true
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_j7g34")]
 position = Vector2(0, 97)
@@ -61,3 +64,5 @@ modulate = Color(1, 1, 1, 0.1)
 position = Vector2(-1, 87)
 scale = Vector2(1, 0.21875)
 texture = SubResource("GradientTexture2D_cantd")
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
