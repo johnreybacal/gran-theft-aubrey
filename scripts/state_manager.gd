@@ -10,6 +10,7 @@ var enemies_defeated: Array[Classes.GrannyNpc] = []
 var police_arriving_count: int = 0
 var police_timer: Timer
 var is_busted: bool = false
+var is_end: bool = false
 
 var interactable_id: int
 var interactables = []
@@ -29,6 +30,7 @@ func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
     EventBus.on_enemy_left.connect(_on_enemy_left)
     EventBus.on_interact.connect(_on_interact)
+    EventBus.on_escape.connect(_on_escape)
     police_timer.timeout.connect(EventBus.on_police_arrival.emit)
 
     update_interactables()
@@ -50,10 +52,13 @@ func _on_encounter_end(instance_id: int, is_winner: bool):
     var enemy = instance_from_id(instance_id)
     if enemy is ExploreEnemy:
         if enemy.is_police and not is_winner:
+            is_end = true
             is_busted = true
 
     AudioServer.set_bus_mute(explore_sfx_bus, false)
 
+func _on_escape():
+    is_end = true
 
 func _on_enemy_left():
     if police_arriving_count == 0:

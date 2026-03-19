@@ -18,6 +18,7 @@ func _ready() -> void:
     EventBus.on_encounter_start.connect(_on_encounter_start.call_deferred.unbind(1))
     EventBus.on_encounter_end.connect(_on_encounter_end.call_deferred.unbind(2))
     EventBus.on_police_arrival.connect(_on_police_arrival)
+    EventBus.on_escape.connect(_on_escape)
     
     show()
     _setup_player_hud.call_deferred()
@@ -33,11 +34,14 @@ func _on_encounter_start():
     camera.enabled = false
 
 func _on_encounter_end():
-    if StateManager.is_busted:
+    if StateManager.is_end:
        queue_free()
     else:
         show()
         camera.enabled = true
+
+func _on_escape():
+    queue_free()
 
 func _on_visibility_changed() -> void:
     $CanvasLayer.visible = visible
@@ -48,7 +52,7 @@ func _setup_player_hud():
     hud.stats.update_arthritis(player.granny.arthritis)
 
 func _on_police_arrival():
-    var x_modifier: int = -1 if player.position.x > 0 else 1
+    var x_modifier: int = 1 if player.position.x > 0 else -1
     var y_modifier: int = 0
     police_entry_x = 2048 * x_modifier
     var enemies: Array[ExploreEnemy] = []
@@ -58,7 +62,7 @@ func _on_police_arrival():
         enemy.is_police = true
         enemy.player = player
         enemy.arthitis_rate = 0.95
-        enemy.position = Vector2(randf_range(2070, 2400) * x_modifier, y_modifier)
+        enemy.global_position = Vector2(randf_range(2070, 2400) * x_modifier, y_modifier)
 
         enemies.append(enemy)
 
@@ -70,6 +74,11 @@ func _on_police_arrival():
 
     $PoliceSpotlightTimer.start()
     is_police_spotlight = true
+
+    # 1, 2, 4
+    # 1, 2, 8
+    player.collision_mask = 11
+    player.can_escape = true
 
 
 func _on_police_spotlight_timer_timeout() -> void:

@@ -37,6 +37,12 @@ end
   - wears / removes hearing aid
 - interactable speaker to toggle BGM
 
+## Layers
+1. player, enemy, player agent avoidance, bush
+2. enemy agent avoidance, bush avoidance, bounds
+3. interactable
+4. escape area
+
 ## Credits
 - Font: https://fonts.google.com/specimen/Gloria+
 - SFX:

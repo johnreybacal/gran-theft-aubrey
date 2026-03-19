@@ -14,6 +14,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-2570, -908, 2629, -900
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r354h"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvqj8"]
+size = Vector2(155, 2054)
+
 [node name="GameExplore" type="Node2D" unique_id=1622595834]
 y_sort_enabled = true
 script = ExtResource("1_fiwcs")
@@ -31,11 +34,38 @@ position_smoothing_speed = 2.0
 [node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
 position = Vector2(-1567, -578)
 
-[node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
+[node name="Enemies" type="Node2D" parent="." unique_id=177335997]
+y_sort_enabled = true
+
+[node name="ExploreEnemy" parent="Enemies" unique_id=1382464199 instance=ExtResource("2_1208y")]
 position = Vector2(-1170, -465)
 
-[node name="ExploreEnemy2" parent="." unique_id=2108070940 instance=ExtResource("2_1208y")]
+[node name="ExploreEnemy2" parent="Enemies" unique_id=2108070940 instance=ExtResource("2_1208y")]
 position = Vector2(-1353, 498)
+
+[node name="ExploreEnemy3" parent="Enemies" unique_id=676110173 instance=ExtResource("2_1208y")]
+position = Vector2(-369, 498)
+
+[node name="ExploreEnemy4" parent="Enemies" unique_id=1932454027 instance=ExtResource("2_1208y")]
+position = Vector2(126, 776)
+
+[node name="ExploreEnemy5" parent="Enemies" unique_id=1838600839 instance=ExtResource("2_1208y")]
+position = Vector2(193, 192)
+
+[node name="ExploreEnemy6" parent="Enemies" unique_id=349429684 instance=ExtResource("2_1208y")]
+position = Vector2(838, 175)
+
+[node name="ExploreEnemy7" parent="Enemies" unique_id=956491551 instance=ExtResource("2_1208y")]
+position = Vector2(1227, -503)
+
+[node name="ExploreEnemy8" parent="Enemies" unique_id=1358505803 instance=ExtResource("2_1208y")]
+position = Vector2(137, -620)
+
+[node name="ExploreEnemy9" parent="Enemies" unique_id=362903978 instance=ExtResource("2_1208y")]
+position = Vector2(643, -859)
+
+[node name="ExploreEnemy10" parent="Enemies" unique_id=1410517592 instance=ExtResource("2_1208y")]
+position = Vector2(1399, 464)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447760284]
 navigation_polygon = SubResource("NavigationPolygon_tpdw7")
@@ -124,6 +154,18 @@ position = Vector2(221, 623)
 [node name="PoliceSpotlightTimer" type="Timer" parent="." unique_id=770079324]
 wait_time = 1.5
 one_shot = true
+
+[node name="EscapeArea" type="StaticBody2D" parent="." unique_id=554541176 groups=["EscapeArea"]]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EscapeArea" unique_id=1747515231]
+position = Vector2(-2048, 0)
+shape = SubResource("RectangleShape2D_qvqj8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EscapeArea" unique_id=1407078552]
+position = Vector2(2048, 0)
+shape = SubResource("RectangleShape2D_qvqj8")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="timeout" from="PoliceSpotlightTimer" to="." method="_on_police_spotlight_timer_timeout"]

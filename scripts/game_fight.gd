@@ -42,7 +42,7 @@ func _on_encounter_start():
     purse.flip_v = false
 
 func _on_encounter_end():
-    if StateManager.is_busted:
+    if StateManager.is_end:
         queue_free()
     else:
         hide()
@@ -54,7 +54,7 @@ func _on_move(move: Meta.Moves):
         return
     hud.disable_buttons()
     $SFX/Fight.play()
-    
+
     var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
     _play_animation(player, move)
@@ -137,6 +137,7 @@ func _play_win_animation(target: AnimatedSprite2D):
     await get_tree().create_timer(1.0).timeout
     target.play("win")
     
+    purse.scale = Vector2.ONE
     purse.rotation_degrees = 90
     if is_winner:
         purse.position = Vector2(-75, 35)

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://clkp6548molod" path="res://scripts/end.gd" id="1_3d26k"]
 [ext_resource type="Theme" uid="uid://bscmmh7v8lsyd" path="res://resources/theme.tres" id="1_mwn6m"]
+[ext_resource type="AudioStream" uid="uid://dbj03dfeb7q78" path="res://assets/sfx/win.mp3" id="3_bvfni"]
+[ext_resource type="AudioStream" uid="uid://6qrci4mojm8" path="res://assets/sfx/lose.mp3" id="4_s4tl2"]
 
 [sub_resource type="Gradient" id="Gradient_fiwcs"]
 offsets = PackedFloat32Array(1)
@@ -38,3 +40,11 @@ z_index = -1
 position = Vector2(4.4999695, 6.5)
 scale = Vector2(20.109375, 11.765625)
 texture = SubResource("GradientTexture2D_3d26k")
+
+[node name="SFX" type="Node2D" parent="." unique_id=2139006654]
+
+[node name="Win" type="AudioStreamPlayer" parent="SFX" unique_id=161604012]
+stream = ExtResource("3_bvfni")
+
+[node name="Lose" type="AudioStreamPlayer" parent="SFX" unique_id=1478303217]
+stream = ExtResource("4_s4tl2")

@@ -8,9 +8,8 @@ var move_vector: Vector2
 @export var arthitis_rate: float = 1
 var granny: Classes.Granny
 
-
-var interact_ray_cast_direction_interval = .1
-
+var interact_ray_cast_direction_interval: float = .1
+var can_escape: bool = false
 
 func _ready() -> void:
     granny = Classes.Granny.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, $GrannySfx, arthitis_rate)
@@ -36,6 +35,14 @@ func _physics_process(delta: float) -> void:
         granny.decrease_arthritis(delta)
 
     _check_interact_ray_cast.call_deferred(delta)
+
+    if can_escape:
+        for i in get_slide_collision_count():
+            var collision = get_slide_collision(i)
+            if collision:
+                var collider: Node2D = collision.get_collider()
+                if collider.is_in_group("EscapeArea"):
+                    EventBus.on_escape.emit()
 
     
 func _handle_animation_and_sound():
