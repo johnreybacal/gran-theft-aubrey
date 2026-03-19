@@ -4,6 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://de8gr68jo3eno" path="res://scenes/hud_fight.tscn" id="2_fxrkh"]
 [ext_resource type="SpriteFrames" uid="uid://c3fivx5xvy8ox" path="res://resources/granny_fight_sprite_frames.tres" id="2_ysmxf"]
 [ext_resource type="Texture2D" uid="uid://dpxldwadc6ywm" path="res://assets/sprites/purse.png" id="3_pewl6"]
+[ext_resource type="AudioStream" uid="uid://dbj03dfeb7q78" path="res://assets/sfx/win.mp3" id="5_hpqlm"]
+[ext_resource type="AudioStream" uid="uid://6qrci4mojm8" path="res://assets/sfx/lose.mp3" id="6_k6vsr"]
+[ext_resource type="AudioStream" uid="uid://g4wqsuclcyfx" path="res://assets/sfx/oof.mp3" id="7_0ufdv"]
+[ext_resource type="AudioStream" uid="uid://deyf2pxosrdwh" path="res://assets/sfx/fight.mp3" id="8_jgibc"]
 
 [sub_resource type="Gradient" id="Gradient_j7g34"]
 offsets = PackedFloat32Array(0.5462963, 0.9660494)
@@ -126,6 +130,22 @@ texture = SubResource("GradientTexture1D_hpqlm")
 
 [node name="MoveTimer" type="Timer" parent="." unique_id=539509820]
 one_shot = true
+
+[node name="SFX" type="Node2D" parent="." unique_id=448344839]
+
+[node name="Win" type="AudioStreamPlayer" parent="SFX" unique_id=1210169231]
+stream = ExtResource("5_hpqlm")
+
+[node name="Lose" type="AudioStreamPlayer" parent="SFX" unique_id=1905850735]
+stream = ExtResource("6_k6vsr")
+
+[node name="Oof" type="AudioStreamPlayer" parent="SFX" unique_id=496519988]
+stream = ExtResource("7_0ufdv")
+
+[node name="Fight" type="AudioStreamPlayer" parent="SFX" unique_id=664432759]
+stream = ExtResource("8_jgibc")
+volume_db = -5.0
+pitch_scale = 1.5
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

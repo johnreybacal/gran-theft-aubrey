@@ -43,4 +43,6 @@ end
   - Footsteps: https://pixabay.com/sound-effects/film-special-effects-8-bit-grass-footsteps-2-408574/
   - Oof: https://pixabay.com/sound-effects/people-homemadeoof-47509/
   - Screaming: https://pixabay.com/sound-effects/people-old-woman-struggling-2-68926/
-  - Knocked down: https://pixabay.com/sound-effects/film-special-effects-person-knocked-down-14798/
+  - Win: https://pixabay.com/sound-effects/musical-level-win-6416/
+  - Lose: https://pixabay.com/sound-effects/musical-violin-lose-4-185125/
+  - Fight: https://pixabay.com/sound-effects/people-ough-47202/

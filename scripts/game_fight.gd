@@ -53,6 +53,8 @@ func _on_move(move: Meta.Moves):
     if move_timer.time_left > 0:
         return
     hud.disable_buttons()
+    $SFX/Fight.play()
+    
     var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
     _play_animation(player, move)
@@ -97,12 +99,14 @@ func _on_move(move: Meta.Moves):
         hud.update_arthritis(StateManager.player.arthritis)
         if not StateManager.player.can_move():
             is_encounter_over = true
+            _play_end_sound()
             move_timer.wait_time = 4
             hud.append_log("Your knee hurts :(")
             _play_animation(player, move, true)
             _play_win_animation.call_deferred(enemy)
     else:
         is_encounter_over = true
+        _play_end_sound()
         move_timer.wait_time = 4
         if is_winner:
             _play_animation(enemy, enemy_move, true)
@@ -140,6 +144,13 @@ func _play_win_animation(target: AnimatedSprite2D):
         purse.position = Vector2(75, 35)
         purse.flip_v = true
 
+func _play_end_sound():
+    await get_tree().create_timer(1.0).timeout
+    if is_winner:
+        $SFX/Win.play()
+    else:
+        $SFX/Lose.play()
+
 func _on_move_timer_timeout() -> void:
     if is_encounter_over:
         EventBus.on_encounter_end.emit(StateManager.encounter_enemy_id, is_winner)
@@ -152,8 +163,12 @@ func _on_move_timer_timeout() -> void:
 
 func _on_player_animation_finished():
     if not player.animation.ends_with("_end") and not is_winner:
+        if player.animation != "hold_yoinked":
+            $SFX/Oof.play()
         player.play(player.animation + "_end")
 
 func _on_enemy_animation_finished():
     if not enemy.animation.ends_with("_end") and is_winner:
+        if enemy.animation != "hold_yoinked":
+            $SFX/Oof.play()
         enemy.play(enemy.animation + "_end")
