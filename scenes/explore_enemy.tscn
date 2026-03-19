@@ -60,7 +60,6 @@ avoidance_enabled = true
 radius = 50.0
 avoidance_layers = 2
 avoidance_mask = 3
-debug_enabled = true
 
 [node name="GrannyStats" parent="." unique_id=284626914 instance=ExtResource("3_j7g34")]
 position = Vector2(0, 10)
