@@ -29,7 +29,8 @@ StateManager="*uid://cdi66x40bdf6a"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="viewport"
+window/size/mode=2
+window/stretch/mode="canvas_items"
 
 [global_group]
 
