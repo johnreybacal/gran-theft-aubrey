@@ -54,7 +54,7 @@ position = Vector2(0, 95)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1194832554]
 avoidance_enabled = true
-radius = 100.0
+radius = 50.0
 avoidance_mask = 0
 debug_enabled = true
 

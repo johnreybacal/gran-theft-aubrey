@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name ExploreEnemy
 
-@export var move_speed: float = 225
+@export var move_speed: float = 200
 @export var arthitis_rate: float = 1.25
 var granny: Classes.GrannyNpc
 var player: ExplorePlayer
@@ -51,7 +51,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
     var delta = get_physics_process_delta_time()
     if granny.can_move() and granny.is_on_the_move():
         # global_position = global_position.move_toward(global_position + safe_velocity, delta * (.75 if granny.is_avoiding else 1.))
-        velocity = safe_velocity
+        velocity = safe_velocity.normalized() * move_speed * (.75 if granny.is_avoiding else 1.)
         granny.increase_arthritis(delta)
     else:
         granny.decrease_arthritis(delta)
