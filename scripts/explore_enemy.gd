@@ -104,6 +104,8 @@ func _check_intervals(delta: float):
                 avoid_interval = 2
                 granny.stats.on_avoiding_end()
                 _set_movement_target(position)
+                if not granny.is_leaving:
+                    interactable.is_interactable = true
 
         if granny.is_chasing:
             chase_interval -= delta
@@ -142,13 +144,12 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
     avoid_interval = 2
     chase_interval = 5
 
+    interactable.is_interactable = false
+
     if is_loser:
         # Ignore player avoidance when chasing
         navigation_agent.avoidance_mask = 2
-        interactable.is_interactable = false
     else:
         navigation_agent.avoidance_mask = 3
-        interactable.is_interactable = true
-
     
     granny.on_encounter_end(is_loser)
