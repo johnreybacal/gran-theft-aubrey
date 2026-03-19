@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_w4xns"]
 radius = 85.0
 
-[node name="Interactable" type="StaticBody2D" unique_id=1599016108 groups=["Interactable"]]
+[node name="Interactable" type="Area2D" unique_id=1067286388 groups=["Interactable"]]
 z_index = 10
 collision_layer = 4
 collision_mask = 0

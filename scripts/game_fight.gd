@@ -37,6 +37,7 @@ func _on_encounter_start():
 
     purse.rotation_degrees = 0
     purse.position = Vector2(0, 30)
+    purse.scale = Vector2.ONE
     purse.flip_v = false
 
 func _on_encounter_end():

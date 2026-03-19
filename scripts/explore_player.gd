@@ -8,7 +8,7 @@ class_name ExplorePlayer
 var granny: Classes.Granny
 
 
-var interact_ray_cast_direction_interval = .25
+var interact_ray_cast_direction_interval = .1
 
 
 func _ready() -> void:
@@ -33,21 +33,6 @@ func _physics_process(delta: float) -> void:
         granny.increase_arthritis(delta)
     else:
         granny.decrease_arthritis(delta)
- 
-    for i in get_slide_collision_count():
-        var collision = get_slide_collision(i)
-        if collision:
-            var collider = collision.get_collider()
-            if collider is ExploreEnemy:
-                if not collider.granny.can_encounter():
-                    return
-                if not collider.granny.is_chasing:
-                    return
-                var direction = collider.position.direction_to(position).normalized()
-                move_and_collide(direction * 15)
-                direction = position.direction_to(collider.position).normalized()
-                collider.move_and_collide(direction * 15)
-                EventBus.on_encounter_start.emit(collider.get_instance_id())
 
     _check_interact_ray_cast.call_deferred(delta)
 
@@ -67,7 +52,7 @@ func _check_interact_ray_cast(delta: float):
 
     interact_ray_cast_direction_interval -= delta
     if interact_ray_cast_direction_interval <= 0:
-        interact_ray_cast_direction_interval = .25
+        interact_ray_cast_direction_interval = .1
         if len(StateManager.interactables) > 0:
             var closest = StateManager.interactables[0]
             var distance = interact_ray_cast.global_position.distance_to(StateManager.interactables[0].global_position)

@@ -54,10 +54,20 @@ func _physics_process(delta: float) -> void:
 
     move_and_slide()
 
+    if granny.can_encounter() and not StateManager.is_busted:
+        for i in get_slide_collision_count():
+            var collision = get_slide_collision(i)
+            if collision:
+                var collider = collision.get_collider()
+                if collider is ExplorePlayer:
+                    var direction: Vector2 = collider.position.direction_to(position)
+                    move_and_collide(direction * 10)
+                    collider.move_and_collide(direction * -10)
+                    EventBus.on_encounter_start.emit(get_instance_id())
+
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
     var delta = get_physics_process_delta_time()
     if granny.can_move() and granny.is_on_the_move():
-        # global_position = global_position.move_toward(global_position + safe_velocity, delta * (.75 if granny.is_avoiding else 1.))
         velocity = safe_velocity.normalized() * move_speed * (.75 if granny.is_avoiding else 1.)
         granny.increase_arthritis(delta)
     else:

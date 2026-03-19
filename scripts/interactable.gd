@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 class_name Interactable
 
 @onready var label: Label = $Label

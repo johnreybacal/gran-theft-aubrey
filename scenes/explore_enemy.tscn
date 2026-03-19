@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://c83bkc0vammix" path="res://scripts/explore_enemy.gd" id="1_1ytwq"]
 [ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_explore_sprite_frames.tres" id="2_j7g34"]
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_j7g34"]
-[ext_resource type="PackedScene" uid="uid://0d2eb60g2nmn" path="res://scenes/interactable.tscn" id="4_cantd"]
+[ext_resource type="Script" uid="uid://2lxug7x5ghwr" path="res://scripts/interactable.gd" id="4_w3v0f"]
+[ext_resource type="Theme" uid="uid://bscmmh7v8lsyd" path="res://resources/theme.tres" id="5_8hppl"]
 
 [sub_resource type="Gradient" id="Gradient_cantd"]
 offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
@@ -27,6 +28,10 @@ gradient = SubResource("Gradient_j7g34")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w3v0f"]
+radius = 31.0
+height = 108.0
 
 [node name="ExploreEnemy" type="CharacterBody2D" unique_id=2108070940]
 collision_mask = 3
@@ -66,8 +71,33 @@ position = Vector2(-1, 0)
 scale = Vector2(1, 0.21875)
 texture = SubResource("GradientTexture2D_cantd")
 
-[node name="Interactable" parent="." unique_id=1599016108 instance=ExtResource("4_cantd")]
+[node name="Interactable" type="Area2D" parent="." unique_id=1599016108 groups=["Interactable"]]
+z_index = 10
 position = Vector2(0, -76)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_w3v0f")
 label_text = "(E) Steal Purse"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1941620525]
+position = Vector2(0, 13)
+shape = SubResource("CapsuleShape2D_w3v0f")
+
+[node name="Label" type="Label" parent="Interactable" unique_id=1509343601]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.5
+offset_top = 60.0
+offset_right = 77.5
+offset_bottom = 108.0
+grow_horizontal = 2
+theme = ExtResource("5_8hppl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 24
+text = "(E) Interact"
+horizontal_alignment = 1
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

@@ -70,7 +70,6 @@ class GrannyNpc extends Granny:
     var is_chasing: bool = false
     var is_avoiding: bool = false
     var is_stunned: bool = false
-    var is_stolen: bool = false
     var is_leaving: bool = false
     var is_police: bool = false
     var encounter_count: int = 0
@@ -88,15 +87,11 @@ class GrannyNpc extends Granny:
         return is_chasing or is_avoiding or is_leaving
 
     func can_encounter():
-        if is_leaving:
+        if is_leaving or is_stunned:
             return false
-        if not is_stolen:
-            return true
         return is_chasing
 
     func on_encounter_end(is_loser: bool):
-        is_stolen = is_loser
-        
         encounter_count += 1
 
         is_chasing = false
@@ -104,6 +99,7 @@ class GrannyNpc extends Granny:
         is_leaving = false
 
         if encounter_count > 2 and not is_police:
+            is_stunned = is_loser
             is_leaving = true
             stats.on_leaving()
         if is_loser:
