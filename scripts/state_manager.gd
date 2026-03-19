@@ -14,6 +14,8 @@ var is_busted: bool = false
 var interactable_id: int
 var interactables = []
 
+var explore_sfx_bus: int = AudioServer.get_bus_index("ExploreSfx")
+
 func _ready() -> void:
     police_timer = Timer.new()
     police_timer.one_shot = true
@@ -37,6 +39,8 @@ func _on_encounter_start(instance_id: int):
     if police_arriving_count > 0:
         police_timer.paused = true
 
+    AudioServer.set_bus_mute(explore_sfx_bus, true)
+
 func _on_encounter_end(instance_id: int, is_winner: bool):
     is_encountered = false
     encounter_enemy_id = -1
@@ -47,6 +51,8 @@ func _on_encounter_end(instance_id: int, is_winner: bool):
     if enemy is ExploreEnemy:
         if enemy.is_police and not is_winner:
             is_busted = true
+
+    AudioServer.set_bus_mute(explore_sfx_bus, false)
 
 
 func _on_enemy_left():

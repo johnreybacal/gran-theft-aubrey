@@ -41,3 +41,6 @@ end
 - Font: https://fonts.google.com/specimen/Gloria+
 - SFX:
   - Footsteps: https://pixabay.com/sound-effects/film-special-effects-8-bit-grass-footsteps-2-408574/
+  - Oof: https://pixabay.com/sound-effects/people-homemadeoof-47509/
+  - Screaming: https://pixabay.com/sound-effects/people-old-woman-struggling-2-68926/
+  - Knocked down: https://pixabay.com/sound-effects/film-special-effects-person-knocked-down-14798/

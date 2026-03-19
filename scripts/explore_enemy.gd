@@ -66,6 +66,8 @@ func _physics_process(delta: float) -> void:
                     EventBus.on_encounter_start.emit(get_instance_id())
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+    if StateManager.is_encountered:
+        return
     var delta = get_physics_process_delta_time()
     if granny.can_move() and granny.is_on_the_move():
         velocity = safe_velocity.normalized() * move_speed * (.75 if granny.is_avoiding else 1.)
@@ -141,6 +143,7 @@ func _leave():
     granny.is_leaving = true
     granny.arthritis_rate = .75
     granny.stats.on_leaving()
+    granny.sfx.play_leaving()
     _set_movement_target(Vector2(2500 * (1 if position.x >= 0 else -1), randf_range(position.y - 100, position.y + 100)))
 
 func _actor_setup():

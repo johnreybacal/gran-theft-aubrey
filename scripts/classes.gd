@@ -40,6 +40,7 @@ class Granny:
             recovery_threshold = randf_range(.5, .9)
             stats.on_knees_hurt()
             play_knees_hurt()
+            sfx.play_knees_hurt()
         stats.update_arthritis(arthritis)
         _update_arthritis_rate_penalty()
 
@@ -50,6 +51,7 @@ class Granny:
                 is_recovering = false
                 stats.on_knees_hurt_end()
                 play_idle()
+                sfx.on_recovery()
         else:
             arthritis = 0
         stats.update_arthritis(arthritis)
@@ -64,11 +66,9 @@ class Granny:
         sfx.play_footstep()
 
     func play_idle():
-        sfx.stop_footstep()
         sprite.play("idle")
 
     func play_knees_hurt():
-        sfx.stop_footstep()
         sprite.play("knees_hurt")
 
 
@@ -107,6 +107,7 @@ class GrannyNpc extends Granny:
         if encounter_count > 2 and not is_police:
             is_stunned = is_loser
             is_leaving = true
+            sfx.play_leaving()
             stats.on_leaving()
         if is_loser:
             if not is_leaving:
