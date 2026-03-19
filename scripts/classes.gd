@@ -72,11 +72,13 @@ class GrannyNpc extends Granny:
     var is_stunned: bool = false
     var is_stolen: bool = false
     var is_leaving: bool = false
+    var is_police: bool = false
     var encounter_count: int = 0
     
-    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1, p_is_police: bool = false):
         var instance = GrannyNpc.new()
         instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
+        instance.is_police = p_is_police
         return instance
 
     func can_move():
@@ -101,7 +103,7 @@ class GrannyNpc extends Granny:
         is_avoiding = false
         is_leaving = false
 
-        if encounter_count > 2:
+        if encounter_count > 2 and not is_police:
             is_leaving = true
             stats.on_leaving()
         if is_loser:
@@ -114,7 +116,7 @@ class GrannyNpc extends Granny:
                 StateManager.enemies_defeated.append(self )
             EventBus.on_purse_stolen_updated.emit()
         else:
-            if not is_leaving:
+            if not is_leaving and not is_police:
                 is_avoiding = true
                 stats.on_avoiding()
             if self in StateManager.enemies_defeated:

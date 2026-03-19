@@ -18,10 +18,8 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-2570, -908, 2629, -900
 y_sort_enabled = true
 script = ExtResource("1_fiwcs")
 
-[node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=392920982]
 position = Vector2(-1567, -578)
-
-[node name="Camera2D" type="Camera2D" parent="ExplorePlayer" unique_id=392920982]
 zoom = Vector2(0.75, 0.75)
 limit_left = -2048
 limit_top = -1024
@@ -29,6 +27,9 @@ limit_right = 2048
 limit_bottom = 1024
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
+
+[node name="ExplorePlayer" parent="." unique_id=1418164251 instance=ExtResource("1_tutr7")]
+position = Vector2(-1567, -578)
 
 [node name="ExploreEnemy" parent="." unique_id=1382464199 instance=ExtResource("2_1208y")]
 position = Vector2(-1170, -465)
@@ -120,4 +121,9 @@ position = Vector2(221, 623)
 
 [node name="Hud" parent="CanvasLayer" unique_id=2120957353 instance=ExtResource("5_r354h")]
 
+[node name="PoliceSpotlightTimer" type="Timer" parent="." unique_id=770079324]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="PoliceSpotlightTimer" to="." method="_on_police_spotlight_timer_timeout"]

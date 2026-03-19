@@ -10,8 +10,8 @@ var is_encounter_over: bool = false
 var is_winner: bool = false
 
 func _ready() -> void:
-    EventBus.on_encounter_start.connect(_on_encounter_start.unbind(1))
-    EventBus.on_encounter_end.connect(_on_encounter_end.unbind(2))
+    EventBus.on_encounter_start.connect(_on_encounter_start.call_deferred.unbind(1))
+    EventBus.on_encounter_end.connect(_on_encounter_end.call_deferred.unbind(2))
     hide()
 
     hud.set_max_arthritis(StateManager.player.max_arthritis)
@@ -40,8 +40,11 @@ func _on_encounter_start():
     purse.flip_v = false
 
 func _on_encounter_end():
-    hide()
-    $Camera2D.enabled = false
+    if StateManager.is_busted:
+        queue_free()
+    else:
+        hide()
+        $Camera2D.enabled = false
 
 
 func _on_move(move: Meta.Moves):

@@ -3,6 +3,7 @@ class_name ExploreEnemy
 
 @export var move_speed: float = 200
 @export var arthitis_rate: float = 1.25
+@export var is_police: bool = false
 var granny: Classes.GrannyNpc
 var player: ExplorePlayer
 
@@ -17,11 +18,17 @@ var chase_interval: float = 5
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
 
-    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate)
+    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate, is_police)
     StateManager.enemies.append(granny)
 
     # Make sure to not await during _ready.
     _actor_setup.call_deferred()
+
+    if is_police:
+        granny.stats.state_label.text = "POLICE\n"
+        granny.is_chasing = true
+        granny.stats.on_chasing()
+        interactable.is_interactable = false
 
 func _physics_process(delta: float) -> void:
     _handle_animation()
@@ -97,7 +104,7 @@ func _check_intervals(delta: float):
             
 
     if granny.can_move():
-        if granny.is_avoiding:
+        if granny.is_avoiding and not is_police:
             avoid_interval -= delta
             if avoid_interval <= 0:
                 granny.is_avoiding = false
@@ -110,11 +117,11 @@ func _check_intervals(delta: float):
         if granny.is_chasing:
             chase_interval -= delta
             if chase_interval <= 0:
-                granny.is_chasing = false
                 chase_interval = 5
-                granny.stats.on_chasing_end()
-                # Ignore Bounds
-                _leave()
+                if not is_police:
+                    granny.stats.on_chasing_end()
+                    granny.is_chasing = false
+                    _leave()
 
         
 func _leave():
@@ -146,10 +153,11 @@ func _on_encounter_end(instance_id: int, is_loser: bool):
 
     interactable.is_interactable = false
 
-    if is_loser:
-        # Ignore player avoidance when chasing
-        navigation_agent.avoidance_mask = 2
-    else:
-        navigation_agent.avoidance_mask = 3
+    if not is_police:
+        if is_loser:
+            # Ignore player avoidance when chasing
+            navigation_agent.avoidance_mask = 2
+        else:
+            navigation_agent.avoidance_mask = 3
     
     granny.on_encounter_end(is_loser)

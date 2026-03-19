@@ -16,19 +16,27 @@ grow_vertical = 2
 theme = ExtResource("1_uo2fv")
 script = ExtResource("1_oo0fn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=99673316]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1006565067]
 layout_mode = 1
-offset_left = 12.0
-offset_top = 12.0
-offset_right = 148.0
-offset_bottom = 126.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="GrannyStats" type="HBoxContainer" parent="VBoxContainer" unique_id=1150983091]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=99673316]
+layout_mode = 2
+
+[node name="GrannyStats" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1150983091]
 layout_mode = 2
 theme_override_constants/separation = 20
 script = ExtResource("2_5ysmq")
 
-[node name="ArthritisBar" type="TextureProgressBar" parent="VBoxContainer/GrannyStats" unique_id=1613047880]
+[node name="ArthritisBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/GrannyStats" unique_id=1613047880]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -36,7 +44,7 @@ step = 0.1
 texture_under = ExtResource("3_6fi6k")
 texture_progress = ExtResource("4_uo2fv")
 
-[node name="StateLabel" type="Label" parent="VBoxContainer/GrannyStats" unique_id=7701898]
+[node name="StateLabel" type="Label" parent="MarginContainer/VBoxContainer/GrannyStats" unique_id=7701898]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
@@ -46,7 +54,7 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 24
 text = "Knees hurt"
 
-[node name="PurseStolenLabel" type="Label" parent="VBoxContainer" unique_id=554397438]
+[node name="PurseStolenLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=554397438]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -54,11 +62,15 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 24
 text = "Purse Stolen: 0"
 
-[node name="Stars" type="HBoxContainer" parent="VBoxContainer" unique_id=1547490240]
+[node name="Stars" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1547490240]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="PoliceTimerLabel" type="Label" parent="VBoxContainer" unique_id=153435157]
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=83470296]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PoliceTimerLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=153435157]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
