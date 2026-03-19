@@ -46,12 +46,12 @@ gradient = SubResource("Gradient_1qjc3")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_fiwcs"]
+[sub_resource type="Gradient" id="Gradient_hpqlm"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ysmxf"]
-gradient = SubResource("Gradient_fiwcs")
+gradient = SubResource("Gradient_hpqlm")
 
 [sub_resource type="Gradient" id="Gradient_pewl6"]
 offsets = PackedFloat32Array(0)
@@ -70,7 +70,6 @@ position = Vector2(-105, 0)
 sprite_frames = ExtResource("2_ysmxf")
 animation = &"hold"
 autoplay = "hold"
-frame_progress = 0.03810904
 
 [node name="Shadow" type="Sprite2D" parent="Player" unique_id=1790879024]
 modulate = Color(1, 1, 1, 0.1)
@@ -101,14 +100,14 @@ scale = Vector2(1.525, 0.668)
 texture = SubResource("GradientTexture2D_pewl6")
 
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=651798517]
-modulate = Color(1, 1, 1, 0.78700006)
-position = Vector2(2.3841858e-07, 49)
-scale = Vector2(10, 5)
+position = Vector2(0, 67)
+scale = Vector2(9.03, 1)
 texture = SubResource("GradientTexture2D_hpqlm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1293225925]
 
 [node name="HudFight" parent="CanvasLayer" unique_id=2113273688 instance=ExtResource("2_fxrkh")]
+metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1781743093]
 position_smoothing_enabled = true
@@ -121,7 +120,7 @@ texture = SubResource("GradientTexture2D_ysmxf")
 
 [node name="Line" type="Sprite2D" parent="." unique_id=915769826]
 z_index = -1
-position = Vector2(0, 100)
+position = Vector2(0, 71)
 scale = Vector2(1, 2)
 texture = SubResource("GradientTexture1D_hpqlm")
 

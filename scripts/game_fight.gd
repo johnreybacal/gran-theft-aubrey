@@ -24,6 +24,7 @@ func _on_visibility_changed() -> void:
     $CanvasLayer.visible = visible
 
 func _on_encounter_start():
+    hud.enable_buttons()
     move_timer.wait_time = 1
     is_encounter_over = false
     is_winner = false
@@ -51,6 +52,7 @@ func _on_encounter_end():
 func _on_move(move: Meta.Moves):
     if move_timer.time_left > 0:
         return
+    hud.disable_buttons()
     var is_draw = false
     var enemy_move: Meta.Moves = Meta.Moves.values().pick_random()
     _play_animation(player, move)
@@ -70,38 +72,38 @@ func _on_move(move: Meta.Moves):
     
     if move == enemy_move:
         is_draw = true
-        hud.append_log("DRAW: Nothing happenned")
+        hud.append_log("Nothing happenned :/")
     elif move == Meta.Moves.Pull:
         if enemy_move == Meta.Moves.Hold:
             is_winner = true
-            hud.append_log("WIN: You yanked the purse")
+            hud.append_log("You yanked the purse >:)")
         elif enemy_move == Meta.Moves.Push:
-            hud.append_log("LOST: You fell down and lost the purse")
+            hud.append_log("You fell down and lost the purse :(")
     elif move == Meta.Moves.Hold:
         if enemy_move == Meta.Moves.Push:
             is_winner = true
-            hud.append_log("WIN: They slipped and lost the purse")
+            hud.append_log("They slipped and lost the purse >:)")
         elif enemy_move == Meta.Moves.Pull:
-            hud.append_log("LOST: They yanked the purse")
+            hud.append_log("They yanked the purse :(")
     elif move == Meta.Moves.Push:
         if enemy_move == Meta.Moves.Pull:
             is_winner = true
-            hud.append_log("WIN: They fell down and lost the purse")
+            hud.append_log("They fell down and lost the purse >:)")
         elif enemy_move == Meta.Moves.Hold:
-            hud.append_log("LOST: You slipped and lost the purse")
+            hud.append_log("You slipped and lost the purse :(")
 
     if is_draw:
         StateManager.player.increase_arthritis(1)
         hud.update_arthritis(StateManager.player.arthritis)
         if not StateManager.player.can_move():
             is_encounter_over = true
-            move_timer.wait_time = 3
-            hud.append_log("LOST: Your knee hurts")
+            move_timer.wait_time = 4
+            hud.append_log("Your knee hurts :(")
             _play_animation(player, move, true)
             _play_win_animation.call_deferred(enemy)
     else:
         is_encounter_over = true
-        move_timer.wait_time = 3
+        move_timer.wait_time = 4
         if is_winner:
             _play_animation(enemy, enemy_move, true)
             _play_win_animation.call_deferred(player)
@@ -146,6 +148,7 @@ func _on_move_timer_timeout() -> void:
         _play_animation(enemy, Meta.Moves.Hold)
         purse.scale.x = 1
         purse.position.x = 0
+        hud.enable_buttons()
 
 func _on_player_animation_finished():
     if not player.animation.ends_with("_end") and not is_winner:
