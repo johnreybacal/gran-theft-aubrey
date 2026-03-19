@@ -38,4 +38,6 @@ end
 - interactable speaker to toggle BGM
 
 ## Credits
-- Font: https://fonts.google.com/specimen/Gloria+Hallelujah
+- Font: https://fonts.google.com/specimen/Gloria+
+- SFX:
+  - Footsteps: https://pixabay.com/sound-effects/film-special-effects-8-bit-grass-footsteps-2-408574/

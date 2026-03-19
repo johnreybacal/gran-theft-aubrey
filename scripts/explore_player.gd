@@ -4,6 +4,7 @@ class_name ExplorePlayer
 @onready var interact_ray_cast: RayCast2D = $InteractRayCast
 
 @export var move_speed: float = 250
+var move_vector: Vector2
 @export var arthitis_rate: float = 1
 var granny: Classes.Granny
 
@@ -12,16 +13,16 @@ var interact_ray_cast_direction_interval = .1
 
 
 func _ready() -> void:
-    granny = Classes.Granny.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate)
+    granny = Classes.Granny.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, $GrannySfx, arthitis_rate)
     StateManager.player = granny
 
 
 func _physics_process(delta: float) -> void:
-    _handle_animation()
+    _handle_animation_and_sound()
     if StateManager.is_encountered:
         return
 
-    var move_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+    move_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
     if granny.can_move():
         velocity = move_vector * move_speed
     else:
@@ -37,9 +38,9 @@ func _physics_process(delta: float) -> void:
     _check_interact_ray_cast.call_deferred(delta)
 
     
-func _handle_animation():
+func _handle_animation_and_sound():
     if velocity != Vector2.ZERO:
-        granny.play_walk(velocity.x < 0)
+        granny.play_walk(move_vector.x < 0)
     elif granny.can_move():
         granny.play_idle()
     else:

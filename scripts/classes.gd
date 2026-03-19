@@ -10,18 +10,21 @@ class Granny:
     var is_recovering: bool = false
     var stats: GrannyStats
     var sprite: AnimatedSprite2D
+    var sfx: GrannySfx
 
-    func init_values(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
+    # This might be getting big hahaha
+    func init_values(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_sfx: GrannySfx, p_arthritis_rate: float = 1):
         instance_id = p_instance_id
         arthritis_rate = p_arthritis_rate
         stats = p_stats
         sprite = p_sprite
+        sfx = p_sfx
         stats.set_max_arthritis(max_arthritis)
         stats.update_arthritis(0)
 
-    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_sfx: GrannySfx, p_arthritis_rate: float = 1):
         var instance = Granny.new()
-        instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
+        instance.init_values(p_instance_id, p_stats, p_sprite, p_sfx, p_arthritis_rate)
         return instance
 
     func can_move():
@@ -58,11 +61,14 @@ class Granny:
     func play_walk(is_facing_left: bool):
         sprite.play("walk")
         sprite.flip_h = is_facing_left
+        sfx.play_footstep()
 
     func play_idle():
+        sfx.stop_footstep()
         sprite.play("idle")
 
     func play_knees_hurt():
+        sfx.stop_footstep()
         sprite.play("knees_hurt")
 
 
@@ -74,9 +80,9 @@ class GrannyNpc extends Granny:
     var is_police: bool = false
     var encounter_count: int = 0
     
-    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_arthritis_rate: float = 1, p_is_police: bool = false):
+    static func init(p_instance_id: int, p_stats: GrannyStats, p_sprite: AnimatedSprite2D, p_sfx: GrannySfx, p_arthritis_rate: float = 1, p_is_police: bool = false):
         var instance = GrannyNpc.new()
-        instance.init_values(p_instance_id, p_stats, p_sprite, p_arthritis_rate)
+        instance.init_values(p_instance_id, p_stats, p_sprite, p_sfx, p_arthritis_rate)
         instance.is_police = p_is_police
         return instance
 

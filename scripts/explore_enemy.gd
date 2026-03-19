@@ -18,7 +18,7 @@ var chase_interval: float = 5
 func _ready() -> void:
     EventBus.on_encounter_end.connect(_on_encounter_end)
 
-    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, arthitis_rate, is_police)
+    granny = Classes.GrannyNpc.init(get_instance_id(), $GrannyStats, $AnimatedSprite2D, $GrannySfx, arthitis_rate, is_police)
     StateManager.enemies.append(granny)
 
     # Make sure to not await during _ready.
@@ -31,7 +31,7 @@ func _ready() -> void:
         interactable.is_interactable = false
 
 func _physics_process(delta: float) -> void:
-    _handle_animation()
+    _handle_animation_and_sound()
     if StateManager.is_encountered:
         return
 
@@ -75,7 +75,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
         velocity = Vector2.ZERO
 
 
-func _handle_animation():
+func _handle_animation_and_sound():
     if granny.is_on_the_move():
         if granny.can_move():
             granny.play_walk(velocity.x < 0)

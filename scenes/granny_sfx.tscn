@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b2dj58etfe0m6"]
+
+[ext_resource type="Script" uid="uid://dvbrn5wv86u7j" path="res://scripts/granny_sfx.gd" id="1_3g1iq"]
+[ext_resource type="AudioStream" uid="uid://cj2n10gnvbgjh" path="res://assets/sfx/footstep.mp3" id="2_3g1iq"]
+
+[node name="GrannySfx" type="Node2D" unique_id=1371760947]
+script = ExtResource("1_3g1iq")
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="." unique_id=1312610623]
+stream = ExtResource("2_3g1iq")
+volume_db = 5.0

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b86dxdtu0dsi7" path="res://scripts/explore_player.gd" id="1_cxtud"]
 [ext_resource type="SpriteFrames" uid="uid://blhtrapl7a2a2" path="res://resources/granny_explore_sprite_frames.tres" id="2_yuam7"]
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_yuam7"]
+[ext_resource type="PackedScene" uid="uid://b2dj58etfe0m6" path="res://scenes/granny_sfx.tscn" id="4_1qjc3"]
 
 [sub_resource type="Gradient" id="Gradient_1qjc3"]
 offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
@@ -41,8 +42,9 @@ texture = SubResource("GradientTexture2D_yuam7")
 position = Vector2(0, -85)
 scale = Vector2(0.75, 0.75)
 sprite_frames = ExtResource("2_yuam7")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
+frame_progress = 0.07755381
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=398498441]
 position = Vector2(0, -63)
@@ -70,3 +72,7 @@ target_position = Vector2(100, 0)
 collision_mask = 4
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1640133998]
+
+[node name="GrannySfx" parent="." unique_id=1371760947 instance=ExtResource("4_1qjc3")]

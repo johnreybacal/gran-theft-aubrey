@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cpyks128hw45y" path="res://scenes/granny_stats.tscn" id="3_j7g34"]
 [ext_resource type="Script" uid="uid://2lxug7x5ghwr" path="res://scripts/interactable.gd" id="4_w3v0f"]
 [ext_resource type="Theme" uid="uid://bscmmh7v8lsyd" path="res://resources/theme.tres" id="5_8hppl"]
+[ext_resource type="PackedScene" uid="uid://b2dj58etfe0m6" path="res://scenes/granny_sfx.tscn" id="6_8hppl"]
 
 [sub_resource type="Gradient" id="Gradient_cantd"]
 offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
@@ -98,5 +99,7 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 24
 text = "(E) Interact"
 horizontal_alignment = 1
+
+[node name="GrannySfx" parent="." unique_id=1371760947 instance=ExtResource("6_8hppl")]
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
