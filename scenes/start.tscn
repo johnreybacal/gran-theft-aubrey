@@ -81,6 +81,24 @@ theme_override_font_sizes/font_size = 52
 text = "GRAN THEFT OTTO"
 horizontal_alignment = 1
 
+[node name="Speech" type="Label" parent="." unique_id=715882733]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -42.0
+offset_right = 414.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_u80x2")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Oh dear, Here we go again"
+vertical_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=490799481]
 position = Vector2(4.4999695, 6.5)
 scale = Vector2(20.109375, 11.765625)

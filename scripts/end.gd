@@ -3,6 +3,7 @@ extends Node2D
 @onready var camera: Camera2D = $Camera2D
 @onready var label: Label = $Label
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     hide()
@@ -16,16 +17,29 @@ func _show_end():
         show()
         camera.enabled = true
         if StateManager.is_busted:
-            label.text = "GRANY OTTO FINALLY CAUGHT!"
+            label.text = "GRANNY OTTO FINALLY CAUGHT!"
             $SFX/Lose.play()
             $AnimatedSprite2D.play("lose")
         else:
             label.text = "GRANNY OTTO STRIKES AGAIN!"
             $SFX/Win.play()
             $AnimatedSprite2D.play("win")
+        label.text += "\nNOTORIETY: " + str(StateManager.police_arriving_count)
+        label.text += "\nPURSE STOLEN: " + str(len(StateManager.enemies_defeated))
 
 
 func _on_restart_button_pressed() -> void:
-    EventBus.on_encounter_end.disconnect(_show_end.call_deferred.unbind(2))
-    EventBus.on_escape.disconnect(_show_end.call_deferred)
-    get_tree().change_scene_to_file("res://scenes/start.tscn")
+    $RestartButton.disabled = true
+    $RestartButton.visible = false
+    
+    var start_scene = preload("res://scenes/start.tscn").instantiate()
+
+    get_tree().root.add_child(start_scene)
+    get_tree().current_scene = start_scene
+
+    if has_node("/root/GameExplore"):
+        get_node("/root/GameExplore").queue_free()
+    if has_node("/root/GameFight"):
+        get_node("/root/GameFight").queue_free()
+    if has_node("/root/End"):
+        get_node("/root/End").queue_free()
