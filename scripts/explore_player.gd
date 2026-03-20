@@ -62,12 +62,15 @@ func _check_interact_ray_cast(delta: float):
     if interact_ray_cast_direction_interval <= 0:
         interact_ray_cast_direction_interval = .1
         if len(StateManager.interactables) > 0:
-            var closest = StateManager.interactables[0]
-            var distance = interact_ray_cast.global_position.distance_to(StateManager.interactables[0].global_position)
+            var closest = null
+            var distance = INF
             for interactable in StateManager.interactables:
-                var d = interact_ray_cast.global_position.distance_to(interactable.global_position)
+                if not is_instance_valid(interactable):
+                    continue
+                var d = interact_ray_cast.global_position.distance_squared_to(interactable.global_position)
                 if d < distance:
                     closest = interactable
+                    distance = d
             var direction = interact_ray_cast.global_position.direction_to(closest.global_position)
             interact_ray_cast.target_position = direction * 100
 
