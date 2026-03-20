@@ -33,8 +33,6 @@ func _ready() -> void:
     EventBus.on_escape.connect(_on_escape)
     police_timer.timeout.connect(EventBus.on_police_arrival.emit)
 
-    update_interactables()
-
 func _on_encounter_start(instance_id: int):
     is_encountered = true
     encounter_enemy_id = instance_id

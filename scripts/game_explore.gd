@@ -23,6 +23,8 @@ func _ready() -> void:
     show()
     _setup_player_hud.call_deferred()
 
+    StateManager.update_interactables()
+
 func _process(_delta: float) -> void:
     if not is_police_spotlight:
         camera.position = player.position

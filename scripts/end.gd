@@ -24,3 +24,7 @@ func _show_end():
             label.text = "GRANNY OTTO STRIKES AGAIN!\n\nPress A to restart"
             $SFX/Win.play()
             $AnimatedSprite2D.play("win")
+
+
+func _on_restart_button_pressed() -> void:
+    get_tree().change_scene_to_file("res://scenes/start.tscn")
