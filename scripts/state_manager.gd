@@ -15,7 +15,10 @@ var is_end: bool = false
 var interactable_id: int
 var interactables = []
 
+var master_bus: int = AudioServer.get_bus_index("Master")
 var explore_sfx_bus: int = AudioServer.get_bus_index("ExploreSfx")
+
+var is_muted: bool = false
 
 func _ready() -> void:
     police_timer = Timer.new()
@@ -70,3 +73,7 @@ func _on_interact(instance_id: int):
 
 func update_interactables():
     interactables = get_tree().get_nodes_in_group("Interactable")
+
+func toggle_mute():
+    is_muted = not is_muted
+    AudioServer.set_bus_mute(master_bus, is_muted)
