@@ -37,6 +37,8 @@ func _on_restart_button_pressed() -> void:
     get_tree().root.add_child(start_scene)
     get_tree().current_scene = start_scene
 
+    StateManager.bgm.stop()
+
     if has_node("/root/GameExplore"):
         get_node("/root/GameExplore").queue_free()
     if has_node("/root/GameFight"):

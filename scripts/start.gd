@@ -44,3 +44,4 @@ func _on_start_button_pressed() -> void:
     $StartButton.disabled = true
     $StartButton.visible = false
     is_starting = true
+    StateManager.bgm.play()

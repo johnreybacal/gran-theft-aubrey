@@ -10,7 +10,6 @@ script = ExtResource("1_3g1iq")
 
 [node name="Footstep" type="AudioStreamPlayer2D" parent="." unique_id=1312610623]
 stream = ExtResource("2_3g1iq")
-volume_db = 5.0
 bus = &"ExploreSfx"
 
 [node name="KneesHurt" type="AudioStreamPlayer2D" parent="." unique_id=1863964099]

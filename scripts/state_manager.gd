@@ -17,8 +17,12 @@ var interactables = []
 
 var master_bus: int = AudioServer.get_bus_index("Master")
 var explore_sfx_bus: int = AudioServer.get_bus_index("ExploreSfx")
+var bgm_bus: int = AudioServer.get_bus_index("BGM")
 
 var is_muted: bool = false
+var is_bgm_muted: bool = false
+var bgm: AudioStreamPlayer
+var bgm_stream: AudioStream = preload("res://assets/bgm/bgm.ogg")
 
 func _ready() -> void:
     police_timer = Timer.new()
@@ -35,6 +39,13 @@ func _ready() -> void:
     EventBus.on_interact.connect(_on_interact)
     EventBus.on_escape.connect(_on_escape)
     police_timer.timeout.connect(EventBus.on_police_arrival.emit)
+
+    bgm = AudioStreamPlayer.new()
+    bgm.stream = bgm_stream
+    bgm.volume_db = -12.5
+    bgm.bus = "BGM"
+    bgm.finished.connect(bgm.play)
+    add_child.call_deferred(bgm)
 
 func _on_encounter_start(instance_id: int):
     is_encountered = true
@@ -70,6 +81,9 @@ func _on_interact(instance_id: int):
     var node: Node2D = instance_from_id(instance_id)
     if node is ExploreEnemy:
         EventBus.on_encounter_start.emit(instance_id)
+    elif node.is_in_group("Speaker"):
+        print("mute bgm")
+        toggle_mute_bgm()
 
 func update_interactables():
     interactables = get_tree().get_nodes_in_group("Interactable")
@@ -77,3 +91,6 @@ func update_interactables():
 func toggle_mute():
     is_muted = not is_muted
     AudioServer.set_bus_mute(master_bus, is_muted)
+
+func toggle_mute_bgm():
+    AudioServer.set_bus_mute(bgm_bus, not AudioServer.is_bus_mute(bgm_bus))

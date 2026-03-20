@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cpvndyay2fh1d"]
+
+[ext_resource type="Texture2D" uid="uid://co6br0f3gd61q" path="res://assets/sprites/speaker.png" id="1_e1qhi"]
+[ext_resource type="PackedScene" uid="uid://0d2eb60g2nmn" path="res://scenes/interactable.tscn" id="2_h6vvc"]
+
+[sub_resource type="Gradient" id="Gradient_1qjc3"]
+offsets = PackedFloat32Array(0.055989582, 0.4674479, 0.70703125)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tgnwo"]
+gradient = SubResource("Gradient_1qjc3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eigk"]
+atlas = ExtResource("1_e1qhi")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv0sp"]
+atlas = ExtResource("1_e1qhi")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2obc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eigk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv0sp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e1qhi"]
+radius = 56.142673
+
+[node name="Speaker" type="StaticBody2D" unique_id=88003080 groups=["Speaker"]]
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=73347732]
+position = Vector2(1, -68)
+scale = Vector2(2.5, 3.5)
+texture = SubResource("GradientTexture2D_tgnwo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=405512144]
+position = Vector2(0, -65)
+sprite_frames = SubResource("SpriteFrames_s2obc")
+autoplay = "default"
+frame_progress = 0.33418173
+
+[node name="Interactable" parent="." unique_id=1067286388 instance=ExtResource("2_h6vvc")]
+position = Vector2(0, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1907233597]
+position = Vector2(0, -58)
+shape = SubResource("CircleShape2D_e1qhi")
