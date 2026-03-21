@@ -82,7 +82,6 @@ func _on_interact(instance_id: int):
     if node is ExploreEnemy:
         EventBus.on_encounter_start.emit(instance_id)
     elif node.is_in_group("Speaker"):
-        print("mute bgm")
         toggle_mute_bgm()
 
 func update_interactables():

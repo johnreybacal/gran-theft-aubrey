@@ -48,7 +48,7 @@ class Granny:
 
     func decrease_arthritis(delta: float):
         if arthritis > 0:
-            arthritis -= delta
+            arthritis -= delta * (2 - (arthritis / max_arthritis))
             if is_recovering and arthritis <= (max_arthritis * recovery_threshold):
                 is_recovering = false
                 stats.on_knees_hurt_end()
