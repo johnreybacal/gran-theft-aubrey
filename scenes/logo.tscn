@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dn0l36fu8b5vn"]
+
+[ext_resource type="Texture2D" uid="uid://4w0sw1ksdns8" path="res://assets/sprites/end_lose.png" id="1_574r7"]
+[ext_resource type="Texture2D" uid="uid://bu3h6p3urn4uf" path="res://assets/sprites/end_win.png" id="2_6tpak"]
+[ext_resource type="Theme" uid="uid://bscmmh7v8lsyd" path="res://resources/theme.tres" id="3_i5l2c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ee763"]
+atlas = ExtResource("1_574r7")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nl5ow"]
+atlas = ExtResource("1_574r7")
+region = Rect2(1280, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovs12"]
+atlas = ExtResource("2_6tpak")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc5t2"]
+atlas = ExtResource("2_6tpak")
+region = Rect2(1280, 0, 1280, 720)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sdt4n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ee763")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nl5ow")
+}],
+"loop": true,
+"name": &"lose",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovs12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc5t2")
+}],
+"loop": true,
+"name": &"win",
+"speed": 3.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_o5lv4"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_12b0w"]
+gradient = SubResource("Gradient_o5lv4")
+
+[node name="Logo" type="Node2D" unique_id=349827098]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=657670185]
+sprite_frames = SubResource("SpriteFrames_sdt4n")
+animation = &"win"
+
+[node name="Label" type="Label" parent="." unique_id=668807313]
+custom_minimum_size = Vector2(500, 400)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 203.0
+offset_right = 24.0
+offset_bottom = 603.0
+grow_horizontal = 2
+theme = ExtResource("3_i5l2c")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -16
+theme_override_font_sizes/font_size = 52
+text = "Gran Theft Otto"
+autowrap_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=865529182]
+position = Vector2(4.4999695, 6.5)
+scale = Vector2(20.109375, 11.765625)
+position_smoothing_enabled = true
+
+[node name="BG" type="Sprite2D" parent="." unique_id=786276664]
+z_index = -1
+position = Vector2(4.4999695, 6.5)
+scale = Vector2(20.109375, 11.765625)
+texture = SubResource("GradientTexture2D_12b0w")
