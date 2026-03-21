@@ -29,6 +29,7 @@ func _ready() -> void:
         granny.is_chasing = true
         granny.stats.on_chasing()
         interactable.is_interactable = false
+        navigation_agent.avoidance_mask = 2
 
 func _physics_process(delta: float) -> void:
     _handle_animation_and_sound()

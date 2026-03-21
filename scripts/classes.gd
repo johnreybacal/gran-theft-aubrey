@@ -91,7 +91,7 @@ class GrannyNpc extends Granny:
     func can_move():
         if is_stunned:
             return false
-        if StateManager.is_police_arrival_spotlight:
+        if StateManager.is_police_arrival_spotlight and not is_police:
             return false
         if is_recovering:
             return false

@@ -66,16 +66,17 @@ func _on_police_arrival():
     police_entry_x = 2048 * x_modifier
     var enemies: Array[ExploreEnemy] = []
     for i in range(StateManager.police_arriving_count):
-        y_modifier += 100
+        y_modifier += 150
         var enemy: ExploreEnemy = enemy_scene.instantiate()
         enemy.is_police = true
         enemy.player = player
-        enemy.arthitis_rate = 0.8
+        enemy.arthitis_rate = randf_range(0.75, 1.1)
+        enemy.move_speed = randf_range(185, 250)
         enemy.global_position = Vector2(randf_range(2070, 2400) * x_modifier, y_modifier)
 
         enemies.append(enemy)
 
-    var y_start = len(enemies) * -50
+    var y_start = len(enemies) * -75
 
     for enemy in enemies:
         enemy.position.y += y_start
