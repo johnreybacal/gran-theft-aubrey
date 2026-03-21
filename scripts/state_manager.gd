@@ -29,8 +29,7 @@ func _ready() -> void:
     police_timer = Timer.new()
     police_timer.one_shot = true
     police_timer.autostart = false
-    police_timer.wait_time = 180
-    police_timer.wait_time = 5
+    police_timer.wait_time = 120
 
     add_child.call_deferred(police_timer)
 
