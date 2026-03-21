@@ -74,30 +74,31 @@ func _on_move(move: Meta.Moves):
     
     if move == enemy_move:
         is_draw = true
-        hud.append_log("Nothing happenned :/")
     elif move == Meta.Moves.Pull:
         if enemy_move == Meta.Moves.Hold:
             is_winner = true
-            hud.append_log("You yanked the purse >:)")
+            hud.append_log("You yanked the purse :)")
         elif enemy_move == Meta.Moves.Push:
             hud.append_log("You fell down and lost the purse :(")
     elif move == Meta.Moves.Hold:
         if enemy_move == Meta.Moves.Push:
             is_winner = true
-            hud.append_log("They slipped and lost the purse >:)")
+            hud.append_log("They slipped and lost the purse :)")
         elif enemy_move == Meta.Moves.Pull:
             hud.append_log("They yanked the purse :(")
     elif move == Meta.Moves.Push:
         if enemy_move == Meta.Moves.Pull:
             is_winner = true
-            hud.append_log("They fell down and lost the purse >:)")
+            hud.append_log("They fell down and lost the purse :)")
         elif enemy_move == Meta.Moves.Hold:
             hud.append_log("You slipped and lost the purse :(")
 
     if is_draw:
         StateManager.player.increase_arthritis(1)
         hud.update_arthritis(StateManager.player.arthritis)
-        if not StateManager.player.can_move():
+        if StateManager.player.can_move():
+            hud.append_log("Nothing happenned :|")
+        else:
             is_encounter_over = true
             _play_end_sound()
             move_timer.wait_time = 4

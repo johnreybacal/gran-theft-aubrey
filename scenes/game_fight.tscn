@@ -135,9 +135,11 @@ one_shot = true
 
 [node name="Win" type="AudioStreamPlayer" parent="SFX" unique_id=1210169231]
 stream = ExtResource("5_hpqlm")
+volume_db = -5.0
 
 [node name="Lose" type="AudioStreamPlayer" parent="SFX" unique_id=1905850735]
 stream = ExtResource("6_k6vsr")
+volume_db = -10.0
 
 [node name="Oof" type="AudioStreamPlayer" parent="SFX" unique_id=496519988]
 stream = ExtResource("7_0ufdv")
