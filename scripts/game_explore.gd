@@ -71,7 +71,7 @@ func _on_police_arrival():
         enemy.is_police = true
         enemy.player = player
         enemy.arthitis_rate = randf_range(0.75, 1.1)
-        enemy.move_speed = randf_range(185, 250)
+        enemy.move_speed = randf_range(185, 275)
         enemy.global_position = Vector2(randf_range(2070, 2400) * x_modifier, y_modifier)
 
         enemies.append(enemy)
@@ -85,7 +85,7 @@ func _on_police_arrival():
     $PoliceSpotlightTimer.start()
     StateManager.is_police_arrival_spotlight = true
     $PoliceIntro.play()
-    
+
     # 1, 2, 4
     # 1, 2, 8
     player.collision_mask = 11
