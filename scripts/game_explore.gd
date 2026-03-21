@@ -6,7 +6,6 @@ extends Node2D
 
 var enemy_scene = preload("res://scenes/explore_enemy.tscn")
 
-var is_police_spotlight: bool = false
 var police_entry_x: float
 
 func _ready() -> void:
@@ -26,7 +25,7 @@ func _ready() -> void:
     StateManager.update_interactables()
 
 func _process(_delta: float) -> void:
-    if not is_police_spotlight:
+    if not StateManager.is_police_arrival_spotlight:
         camera.position = player.position
     else:
         camera.position = Vector2(police_entry_x, 0)
@@ -53,7 +52,15 @@ func _setup_player_hud():
     hud.stats.set_max_arthritis(player.granny.max_arthritis)
     hud.stats.update_arthritis(player.granny.arthritis)
 
+func _toggle_bounds_disabled(disabled: bool):
+    $Bounds/Bottom/CollisionShape2D.disabled = disabled
+    $Bounds/Bottom/CollisionShape2D.disabled = disabled
+    $Bounds/Bottom/CollisionShape2D.disabled = disabled
+    $Bounds/Bottom/CollisionShape2D.disabled = disabled
+
+
 func _on_police_arrival():
+    _toggle_bounds_disabled(true)
     var x_modifier: int = 1 if player.position.x > 0 else -1
     var y_modifier: int = 0
     police_entry_x = 2048 * x_modifier
@@ -63,19 +70,19 @@ func _on_police_arrival():
         var enemy: ExploreEnemy = enemy_scene.instantiate()
         enemy.is_police = true
         enemy.player = player
-        enemy.arthitis_rate = 0.95
+        enemy.arthitis_rate = 0.8
         enemy.global_position = Vector2(randf_range(2070, 2400) * x_modifier, y_modifier)
 
         enemies.append(enemy)
 
-    var y_start = len(enemies) * -25
+    var y_start = len(enemies) * -50
 
     for enemy in enemies:
         enemy.position.y += y_start
         add_child.call_deferred(enemy)
 
     $PoliceSpotlightTimer.start()
-    is_police_spotlight = true
+    StateManager.is_police_arrival_spotlight = true
 
     # 1, 2, 4
     # 1, 2, 8
@@ -84,4 +91,5 @@ func _on_police_arrival():
 
 
 func _on_police_spotlight_timer_timeout() -> void:
-    is_police_spotlight = false
+    StateManager.is_police_arrival_spotlight = false
+    _toggle_bounds_disabled(false)

@@ -9,6 +9,7 @@ var enemies_defeated: Array[Classes.GrannyNpc] = []
 
 var police_arriving_count: int = 0
 var police_timer: Timer
+var is_police_arrival_spotlight: bool = false
 var is_busted: bool = false
 var is_end: bool = false
 
@@ -29,7 +30,7 @@ func _ready() -> void:
     police_timer.one_shot = true
     police_timer.autostart = false
     police_timer.wait_time = 180
-    police_timer.wait_time = 30
+    police_timer.wait_time = 5
 
     add_child.call_deferred(police_timer)
 

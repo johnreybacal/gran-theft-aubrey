@@ -28,6 +28,8 @@ class Granny:
         return instance
 
     func can_move():
+        if StateManager.is_police_arrival_spotlight:
+            return false
         if is_recovering:
             return false
         return arthritis < max_arthritis
@@ -87,7 +89,13 @@ class GrannyNpc extends Granny:
         return instance
 
     func can_move():
-        return super.can_move() and not is_stunned
+        if is_stunned:
+            return false
+        if StateManager.is_police_arrival_spotlight:
+            return false
+        if is_recovering:
+            return false
+        return arthritis < max_arthritis
 
     func is_on_the_move():
         return is_chasing or is_avoiding or is_leaving
