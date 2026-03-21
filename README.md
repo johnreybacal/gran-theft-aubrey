@@ -52,4 +52,6 @@ end
   - Win: https://pixabay.com/sound-effects/musical-level-win-6416/
   - Lose: https://pixabay.com/sound-effects/musical-violin-lose-4-185125/
   - Fight: https://pixabay.com/sound-effects/people-ough-47202/
+  - Radio: https://pixabay.com/sound-effects/film-special-effects-radio-338296/
+  - Police intro: https://pixabay.com/sound-effects/film-special-effects-police-intro-sfx-323774/
 - BGM: Sketchbook 2024-05-22 https://tallbeard.itch.io/music-loop-bundle

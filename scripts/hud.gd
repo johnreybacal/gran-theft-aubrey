@@ -35,6 +35,7 @@ func _input(event: InputEvent) -> void:
 func _on_enemy_left():
     var star = hud_star_scene.instantiate()
     stars.add_child.call_deferred(star)
+    $Radio.play()
 
 func _on_purse_stolen_updated():
     purse_stolen_label.text = "Purse Stolen: " + str(len(StateManager.enemies_defeated))

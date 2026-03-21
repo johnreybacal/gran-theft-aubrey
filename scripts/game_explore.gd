@@ -84,7 +84,8 @@ func _on_police_arrival():
 
     $PoliceSpotlightTimer.start()
     StateManager.is_police_arrival_spotlight = true
-
+    $PoliceIntro.play()
+    
     # 1, 2, 4
     # 1, 2, 8
     player.collision_mask = 11

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://44h8jx170cao" path="res://scenes/bush.tscn" id="5_qvqj8"]
 [ext_resource type="PackedScene" uid="uid://cfcbjj5bpnt6u" path="res://scenes/hud.tscn" id="5_r354h"]
 [ext_resource type="PackedScene" uid="uid://cpvndyay2fh1d" path="res://scenes/speaker.tscn" id="7_82kap"]
+[ext_resource type="AudioStream" uid="uid://v6nc3l5jfns0" path="res://assets/sfx/policy_intro.mp3" id="8_4s7jy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tpdw7"]
 vertices = PackedVector2Array(2619.0078, -890.0078, 2621.9766, 1014.0078, -2591.8281, 1019.97656, -2560.1563, -897.97656)
@@ -170,6 +171,10 @@ shape = SubResource("RectangleShape2D_qvqj8")
 
 [node name="Speaker" parent="." unique_id=480016881 instance=ExtResource("7_82kap")]
 position = Vector2(-105, -460)
+
+[node name="PoliceIntro" type="AudioStreamPlayer" parent="." unique_id=413376391]
+stream = ExtResource("8_4s7jy")
+volume_db = 10.0
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="timeout" from="PoliceSpotlightTimer" to="." method="_on_police_spotlight_timer_timeout"]
